@@ -15,6 +15,7 @@
 
 namespace RM\Bundle\ClientBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -31,6 +32,33 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        return new TreeBuilder('relmsg_client');
+        $treeBuilder = new TreeBuilder('relmsg_client');
+        $root = $treeBuilder->getRootNode();
+        $root
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->append($this->getAuthNode())
+            ->end()
+        ;
+        return $treeBuilder;
+    }
+
+    protected function getAuthNode(): NodeDefinition
+    {
+        $builder = new TreeBuilder('auth');
+        $node = $builder->getRootNode();
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('app_id')
+                    ->defaultValue('%env(string:RM_APP_ID)%')
+                    ->cannotBeEmpty()
+                ->end()
+                ->scalarNode('app_secret')
+                    ->defaultValue('%env(string:RM_APP_SECRET)%')
+                    ->cannotBeEmpty()
+                ->end()
+            ->end();
+        return $node;
     }
 }
