@@ -1,0 +1,50 @@
+{
+    "name": "relmsg/client-bundle",
+    "description": "A Relations Messenger Client Bundle for Symfony",
+    "type": "symfony-bundle",
+    "license": "Apache-2.0",
+    "homepage": "https://dev.relmsg.ru/packages/client-bundle",
+    "authors": [
+        {
+            "name": "Oleg Kozlov",
+            "email": "h1karo@relmsg.ru",
+            "homepage": "https://rel.ms/h1karo",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "RM\\Bundle\\ClientBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RM\\Bundle\\ClientBundle\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.4",
+
+        "symfony/event-dispatcher": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/framework-bundle": "^4.4|^5.0",
+        "symfony/monolog-bundle": "^3.5",
+        "symfony/validator": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0"
+    },
+    "require-dev": {
+        "symfony/browser-kit": "^4.4|^5.0",
+        "symfony/dotenv": "^4.4|^5.0",
+        "symfony/phpunit-bridge": "^4.4|^5.0",
+        "symfony/twig-bundle": "^4.4|^5.0",
+        "symfony/twig-bridge": "^4.4|^5.0",
+        "symfony/web-profiler-bundle": "^4.4|^5.0",
+        "twig/twig": "^2.10|^3.0",
+
+        "vimeo/psalm": "^3.11",
+        "roave/security-advisories": "dev-master"
+    },
+    "config": {
+        "sort-packages": false
+    }
+}

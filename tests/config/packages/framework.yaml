@@ -1,0 +1,8 @@
+framework:
+    test: true
+    secret: test
+    router:
+        resource: '%kernel.project_dir%/config/routes.yaml'
+    session:
+        storage_id: session.storage.mock_file
+    profiler: { only_exceptions: false }
