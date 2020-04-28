@@ -15,6 +15,7 @@
 
 namespace RM\Bundle\ClientBundle\DependencyInjection;
 
+use RM\Bundle\ClientBundle\Transport\TransportType;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -37,6 +38,7 @@ class Configuration implements ConfigurationInterface
         $root
             ->addDefaultsIfNotSet()
             ->children()
+                ->append($this->getTransportNode())
                 ->append($this->getAuthNode())
             ->end()
         ;
@@ -59,6 +61,29 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeEmpty()
                 ->end()
             ->end();
+        return $node;
+    }
+
+    protected function getTransportNode(): NodeDefinition
+    {
+        $builder = new TreeBuilder('transport');
+        $node = $builder->getRootNode();
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->enumNode('type')
+                    ->defaultValue(TransportType::HTTP)
+                    ->values(TransportType::all())
+                ->end()
+                ->scalarNode('service')
+                    ->defaultNull()
+                ->end()
+            ->end()
+            ->beforeNormalization()
+                ->ifString()
+                ->then(fn(string $v) => ['type' => $v])
+            ->end()
+        ;
         return $node;
     }
 }
