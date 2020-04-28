@@ -16,10 +16,14 @@
 namespace RM\Bundle\ClientBundle\DependencyInjection;
 
 use Exception;
+use RM\Bundle\ClientBundle\Transport\TransportType;
+use RM\Component\Client\Transport\HttpTransport;
+use RM\Component\Client\Transport\TransportInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use UnexpectedValueException;
 
 /**
  * Class RelmsgClientExtension
@@ -38,10 +42,34 @@ class RelmsgClientExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
-        $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('client.yaml');
         $loader->load('transports.yaml');
+
+        if ($config['transport']['service'] === null) {
+            $type = new TransportType($config['transport']['type']);
+            $class = $this->getTransportClass($type);
+            $this->registerOrAlias($container, TransportInterface::class, $class);
+        }
+    }
+
+    protected function getTransportClass(TransportType $type): string
+    {
+        if ($type->is(TransportType::HTTP)) {
+            return HttpTransport::class;
+        }
+
+        throw new UnexpectedValueException(sprintf('Transport %s is not supported.', $type->getName()));
+    }
+
+    private function registerOrAlias(ContainerBuilder $container, string $alias, string $class): void
+    {
+        if ($container->has($class)) {
+            $container->setAlias($alias, $class);
+        } else {
+            $container->register($alias, $class);
+        }
     }
 }

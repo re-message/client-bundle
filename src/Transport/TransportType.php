@@ -43,6 +43,11 @@ class TransportType
         $this->name = $name;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function is(string $strategy): bool
     {
         return $this->name === $strategy;
