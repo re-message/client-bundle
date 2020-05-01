@@ -48,6 +48,7 @@ class RelmsgClientExtension extends Extension
         $loader->load('client.yaml');
         $loader->load('transports.yaml');
         $loader->load('hydrators.yaml');
+        $loader->load('repositories.yaml');
 
         if ($config['transport']['service'] === null) {
             $type = new TransportType($config['transport']['type']);

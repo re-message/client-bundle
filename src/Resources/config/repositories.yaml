@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    RM\Component\Client\RepositoryRegistryInterface:
+        public: true
+        alias: RM\Component\Client\RepositoryRegistry
+    RM\Component\Client\RepositoryRegistry: null
