@@ -4,7 +4,7 @@ services:
         autowire: true
         autoconfigure: true
 
-    RM\Component\Client\Client:
-        decorates: RM\Component\Client\Transport\TransportInterface
-    RM\Component\Client\ClientInterface: '@RM\Component\Client\Client'
-    RM\Component\Client\RepositoryRegistryInterface: '@RM\Component\Client\Client'
+    RM\Component\Client\Client: null
+    RM\Component\Client\ClientInterface:
+        public: true
+        alias: RM\Component\Client\Client
