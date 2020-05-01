@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    RM\Component\Client\Security\TokenStorageInterface:
+        alias: RM\Component\Client\Security\TokenStorage
+    RM\Component\Client\Security\TokenStorage: null
+
+    RM\Component\Client\Security\AuthenticatorFactoryInterface:
+        alias: RM\Bundle\ClientBundle\Security\ServiceAuthenticatorFactory
+    RM\Bundle\ClientBundle\Security\ServiceAuthenticatorFactory:
+        arguments:
+            $container: !tagged_locator
+                tag: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_AUTHENTICATOR
+
+    _instanceof:
+        RM\Component\Client\Security\AuthenticatorInterface:
+            tags:
+                - { name: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_AUTHENTICATOR }
