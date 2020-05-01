@@ -25,5 +25,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class RelmsgClientBundle extends Bundle
 {
+    public const NAME = 'relmsg_client';
 
+    public const TAG_REPOSITORY = self::NAME . '.repository';
 }
