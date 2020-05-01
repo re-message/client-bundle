@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+
+    RM\Component\Client\Hydrator\HydratorInterface:
+        alias: RM\Component\Client\Hydrator\EntityHydrator
+    RM\Component\Client\Hydrator\EntityHydrator: null
