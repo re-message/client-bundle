@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    RM\Bundle\ClientBundle\Transport\TraceableTransport:
+        decorates: RM\Component\Client\Transport\TransportInterface
