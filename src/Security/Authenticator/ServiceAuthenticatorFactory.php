@@ -13,18 +13,18 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Bundle\ClientBundle\Security;
+namespace RM\Bundle\ClientBundle\Security\Authenticator;
 
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
-use RM\Component\Client\Security\AuthenticatorFactory;
-use RM\Component\Client\Security\AuthenticatorFactoryInterface;
-use RM\Component\Client\Security\AuthenticatorInterface;
+use RM\Component\Client\Security\Authenticator\AuthenticatorFactory;
+use RM\Component\Client\Security\Authenticator\AuthenticatorFactoryInterface;
+use RM\Component\Client\Security\Authenticator\AuthenticatorInterface;
 
 /**
  * Class ServiceAuthenticatorFactory
  *
- * @package RM\Bundle\ClientBundle\Security
+ * @package RM\Bundle\ClientBundle\Security\Authenticator
  * @author  h1karo <h1karo@outlook.com>
  */
 final class ServiceAuthenticatorFactory implements AuthenticatorFactoryInterface
