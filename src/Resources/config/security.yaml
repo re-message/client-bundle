@@ -19,3 +19,5 @@ services:
         RM\Component\Client\Security\Authenticator\AuthenticatorInterface:
             tags:
                 - { name: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_AUTHENTICATOR }
+
+    RM\Component\Client\Security\Authenticator\ServiceAuthenticator: null

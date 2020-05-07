@@ -20,3 +20,6 @@ services:
         RM\Component\Client\Repository\RepositoryInterface:
             tags:
                 - { name: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_REPOSITORY }
+
+    RM\Component\Client\Repository\UserRepository: null
+    RM\Component\Client\Repository\ApplicationRepository: null
