@@ -16,6 +16,7 @@
 namespace RM\Bundle\ClientBundle\DependencyInjection;
 
 use Exception;
+use RM\Bundle\ClientBundle\RelmsgClientBundle;
 use RM\Bundle\ClientBundle\Transport\TransportType;
 use RM\Component\Client\Transport\HttpTransport;
 use RM\Component\Client\Transport\TransportInterface;
@@ -54,6 +55,9 @@ class RelmsgClientExtension extends Extension
         if ($container->hasParameter('kernel.debug') && $container->getParameter('kernel.debug')) {
             $loader->load('debug.yaml');
         }
+
+        $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['auth']['app_id']);
+        $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['auth']['app_secret']);
 
         if ($config['transport']['service'] === null) {
             $type = new TransportType($config['transport']['type']);

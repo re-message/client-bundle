@@ -29,4 +29,7 @@ class RelmsgClientBundle extends Bundle
 
     public const TAG_REPOSITORY = self::NAME . '.repository';
     public const TAG_AUTHENTICATOR = self::NAME . '.authenticator';
+
+    public const APP_ID_PARAMETER = self::NAME . '.app_id';
+    public const APP_SECRET_PARAMETER = self::NAME . '.app_secret';
 }
