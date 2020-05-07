@@ -18,6 +18,7 @@ services:
 
     _instanceof:
         RM\Component\Client\Repository\RepositoryInterface:
+            public: true
             tags:
                 - { name: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_REPOSITORY }
 
