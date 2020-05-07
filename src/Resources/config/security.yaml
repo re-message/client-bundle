@@ -5,8 +5,8 @@ services:
         autoconfigure: true
 
     RM\Component\Client\Security\Storage\TokenStorageInterface:
-        alias: RM\Component\Client\Security\Storage\TokenStorage
-    RM\Component\Client\Security\Storage\TokenStorage: null
+        alias: RM\Bundle\ClientBundle\Security\Storage\SessionTokenStorage
+    RM\Bundle\ClientBundle\Security\Storage\SessionTokenStorage:
 
     RM\Component\Client\Security\Authenticator\AuthenticatorFactoryInterface:
         alias: RM\Bundle\ClientBundle\Security\Authenticator\ServiceAuthenticatorFactory
