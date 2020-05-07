@@ -15,6 +15,10 @@ services:
             $container: !tagged_locator
                 tag: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_AUTHENTICATOR
 
+    RM\Component\Client\Security\Resolver\TokenResolverInterface:
+        alias: RM\Component\Client\Security\Resolver\ConfigTokenResolver
+    RM\Component\Client\Security\Resolver\ConfigTokenResolver: null
+
     _instanceof:
         RM\Component\Client\Security\Authenticator\AuthenticatorInterface:
             tags:
