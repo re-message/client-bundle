@@ -3,3 +3,6 @@ services:
         public: false
         autowire: true
         autoconfigure: true
+
+    RM\Bundle\ClientBundle\Tests\Stub\Autowired:
+        public: true

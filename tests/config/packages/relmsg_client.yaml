@@ -1,0 +1,2 @@
+relmsg_client:
+    transport: http
