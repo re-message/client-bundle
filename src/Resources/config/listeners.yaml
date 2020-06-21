@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    RM\Bundle\ClientBundle\EventListener\:
+        resource: ../../EventListener/*
+        tags:
+            - { name: kernel.event_listener }

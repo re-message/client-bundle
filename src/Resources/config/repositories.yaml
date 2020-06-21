@@ -4,12 +4,12 @@ services:
         autowire: true
         autoconfigure: true
 
-    RM\Component\Client\Repository\RepositoryRegistryInterface:
+    RM\Component\Client\Repository\Registry\RepositoryRegistryInterface:
         public: true
-        alias: RM\Component\Client\Repository\RepositoryRegistry
-    RM\Component\Client\Repository\RepositoryRegistry: null
+        alias: RM\Component\Client\Repository\Registry\RepositoryRegistry
+    RM\Component\Client\Repository\Registry\RepositoryRegistry: null
 
-    RM\Component\Client\Repository\RepositoryFactoryInterface:
+    RM\Component\Client\Repository\Factory\RepositoryFactoryInterface:
         alias: RM\Bundle\ClientBundle\Repository\ServiceRepositoryFactory
     RM\Bundle\ClientBundle\Repository\ServiceRepositoryFactory:
         arguments:

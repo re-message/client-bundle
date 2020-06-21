@@ -17,7 +17,7 @@ namespace RM\Bundle\ClientBundle\Repository;
 
 use Doctrine\Common\Annotations\Reader;
 use Psr\Container\ContainerInterface;
-use RM\Component\Client\Repository\AbstractFactory;
+use RM\Component\Client\Repository\Factory\AbstractFactory;
 use RM\Component\Client\Repository\RepositoryInterface;
 
 /**

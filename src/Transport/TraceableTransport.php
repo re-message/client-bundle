@@ -55,7 +55,7 @@ class TraceableTransport extends DecoratedTransport implements ResetInterface
             $received = $e->getError();
             throw $e;
         } finally {
-            $transport = $this->getRealTransport();
+            $transport = $this->getTransport();
             $message = sprintf('%s sent message to core.', get_class($transport));
             $this->logger->debug($message, ['sent' => $sent->toArray(), 'received' => $received->toArray()]);
             $this->interactions[] = [$sent, $received];

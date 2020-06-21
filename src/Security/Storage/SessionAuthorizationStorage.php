@@ -16,16 +16,11 @@
 namespace RM\Bundle\ClientBundle\Security\Storage;
 
 use RM\Component\Client\Exception\TokenNotFoundException;
-use RM\Component\Client\Security\Storage\TokenStorageInterface;
+use RM\Component\Client\Security\Credentials\AuthorizationInterface;
+use RM\Component\Client\Security\Storage\AuthorizationStorageInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-/**
- * Class SessionTokenStorage
- *
- * @package RM\Bundle\ClientBundle\Security\Storage
- * @author  h1karo <h1karo@outlook.com>
- */
-class SessionTokenStorage implements TokenStorageInterface
+class SessionAuthorizationStorage implements AuthorizationStorageInterface
 {
     private const SESSION_NAMESPACE = '_relmsg';
 
@@ -38,16 +33,16 @@ class SessionTokenStorage implements TokenStorageInterface
         $this->namespace = $namespace;
     }
 
-    public function set(string $type, string $token): void
+    public function set(string $type, AuthorizationInterface $auth): void
     {
         if (!$this->session->isStarted()) {
             $this->session->start();
         }
 
-        $this->session->set($this->getName($type), $token);
+        $this->session->set($this->getName($type), $auth);
     }
 
-    public function get(string $type): string
+    public function get(string $type): AuthorizationInterface
     {
         if (!$this->has($type)) {
             throw new TokenNotFoundException($type);

@@ -17,9 +17,8 @@ namespace RM\Bundle\ClientBundle\Security\Authenticator;
 
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
-use RM\Component\Client\Security\Authenticator\AuthenticatorFactory;
-use RM\Component\Client\Security\Authenticator\AuthenticatorFactoryInterface;
 use RM\Component\Client\Security\Authenticator\AuthenticatorInterface;
+use RM\Component\Client\Security\Authenticator\Factory\AuthenticatorFactoryInterface;
 
 /**
  * Class ServiceAuthenticatorFactory
@@ -36,11 +35,10 @@ final class ServiceAuthenticatorFactory implements AuthenticatorFactoryInterface
         $this->container = $container;
     }
 
-    public function build(string $type): AuthenticatorInterface
+    public function build(string $class): AuthenticatorInterface
     {
-        $class = AuthenticatorFactory::PROVIDERS[$type] ?? null;
         if ($class === null || !$this->container->has($class)) {
-            throw new InvalidArgumentException(sprintf('Authorization provider with name `%s` does not exist.', $type));
+            throw new InvalidArgumentException(sprintf('Authorization provider class `%s` does not exist.', $class));
         }
 
         return $this->container->get($class);

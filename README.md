@@ -11,14 +11,15 @@ Client uses the specific version when sends messages to Core.
 
 ## Requirements
 
-0. PHP 7.4+
+1. PHP 7.4+
 
 ## Installation
 
-0. You will need Composer to install:
-`composer require relmsg/client-bundle`
-0. Register the bundle in `config/bundles.php` (Symfony Flex configures it automatic).
-0. Configure the application authorization (see [Authorization](#authorization))
+1. You will need Composer to install: `composer require relmsg/client-bundle`
+2. Register the bundles in `config/bundles.php`:
+    * RelmsgClientBundle
+    * MessageBundle
+3. Configure the application authorization (see [Authorization](#authorization))
 
 ## Authorization
 
