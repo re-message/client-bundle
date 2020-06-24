@@ -17,10 +17,10 @@ namespace RM\Bundle\ClientBundle\Tests\Stub;
 
 use RM\Component\Client\ClientInterface;
 use RM\Component\Client\Hydrator\HydratorInterface;
-use RM\Component\Client\Repository\RepositoryFactoryInterface;
-use RM\Component\Client\Repository\RepositoryRegistryInterface;
-use RM\Component\Client\Security\Authenticator\AuthenticatorFactoryInterface;
-use RM\Component\Client\Security\Storage\TokenStorageInterface;
+use RM\Component\Client\Repository\Factory\RepositoryFactoryInterface;
+use RM\Component\Client\Repository\Registry\RepositoryRegistryInterface;
+use RM\Component\Client\Security\Authenticator\Factory\AuthenticatorFactoryInterface;
+use RM\Component\Client\Security\Storage\AuthorizationStorageInterface;
 use RM\Component\Client\Transport\TransportInterface;
 
 /**
@@ -35,7 +35,7 @@ class Autowired
     private HydratorInterface $hydrator;
     private RepositoryRegistryInterface $registry;
     private RepositoryFactoryInterface $repositoryFactory;
-    private TokenStorageInterface $tokenStorage;
+    private AuthorizationStorageInterface $authorizationStorage;
     private AuthenticatorFactoryInterface $authenticatorFactory;
     private TransportInterface $transport;
 
@@ -44,7 +44,7 @@ class Autowired
         HydratorInterface $hydrator,
         RepositoryRegistryInterface $registry,
         RepositoryFactoryInterface $factory,
-        TokenStorageInterface $tokenStorage,
+        AuthorizationStorageInterface $authorizationStorage,
         AuthenticatorFactoryInterface $authenticatorFactory,
         TransportInterface $transport
     ) {
@@ -52,7 +52,7 @@ class Autowired
         $this->hydrator = $hydrator;
         $this->registry = $registry;
         $this->repositoryFactory = $factory;
-        $this->tokenStorage = $tokenStorage;
+        $this->authorizationStorage = $authorizationStorage;
         $this->authenticatorFactory = $authenticatorFactory;
         $this->transport = $transport;
     }
@@ -77,9 +77,9 @@ class Autowired
         return $this->repositoryFactory;
     }
 
-    public function getTokenStorage(): TokenStorageInterface
+    public function getAuthorizationStorage(): AuthorizationStorageInterface
     {
-        return $this->tokenStorage;
+        return $this->authorizationStorage;
     }
 
     public function getAuthenticatorFactory(): AuthenticatorFactoryInterface
