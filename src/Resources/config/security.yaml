@@ -29,5 +29,11 @@ services:
         RM\Component\Client\Security\Authenticator\AuthenticatorInterface:
             tags:
                 - { name: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_AUTHENTICATOR }
+        RM\Component\Client\Security\Authenticator\RedirectAuthenticatorInterface:
+            calls:
+                -   setFactory: ['@RM\Component\Client\Security\Authenticator\Factory\AuthenticatorFactoryInterface']
+        RM\Component\Client\Security\Authenticator\StorableAuthenticatorInterface:
+            calls:
+                -   setStorage: ['@RM\Component\Client\Security\Storage\AuthorizationStorageInterface']
 
     RM\Component\Client\Security\Authenticator\ServiceAuthenticator: null
