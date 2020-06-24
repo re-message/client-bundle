@@ -14,4 +14,33 @@
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
+
+    <issueHandlers>
+        <UnusedMethod>
+            <errorLevel type="suppress">
+<!--                <directory name="src/Command" />-->
+                <directory name="src/EventListener" />
+                <referencedMethod name="*::__construct"/>
+            </errorLevel>
+        </UnusedMethod>
+
+        <UnusedClass errorLevel="suppress">
+            <errorLevel type="error">
+<!--                <directory name="src/Entity" />-->
+<!--                <directory name="src/Model" />-->
+<!--                <directory name="src/Exception" />-->
+            </errorLevel>
+        </UnusedClass>
+        <PossiblyUnusedMethod>
+            <errorLevel type="suppress">
+<!--                <directory name="src/Entity" />-->
+<!--                <directory name="src/Model" />-->
+<!--                <directory name="src/Command" />-->
+                <directory name="src/EventListener" />
+<!--                <directory name="src/Twig" />-->
+                <directory name="tests/" />
+                <referencedMethod name="*::__construct"/>
+            </errorLevel>
+        </PossiblyUnusedMethod>
+    </issueHandlers>
 </psalm>
