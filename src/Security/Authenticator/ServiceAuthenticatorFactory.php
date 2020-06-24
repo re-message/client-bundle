@@ -36,7 +36,7 @@ final class ServiceAuthenticatorFactory implements AuthenticatorFactoryInterface
 
     public function build(string $class): AuthenticatorInterface
     {
-        if ($class === null || !$this->container->has($class)) {
+        if (!$this->container->has($class)) {
             throw new InvalidArgumentException(sprintf('Authorization provider class `%s` does not exist.', $class));
         }
 
