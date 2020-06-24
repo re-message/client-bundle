@@ -23,8 +23,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 /**
  * Class Configuration
  *
- * @package RM\Bundle\ClientBundle\DependencyInjection
- * @author  h1karo <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@outlook.com>
  */
 class Configuration implements ConfigurationInterface
 {

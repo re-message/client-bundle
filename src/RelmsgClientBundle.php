@@ -20,8 +20,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * Class RelmsgClientBundle
  *
- * @package RM\Bundle\ClientBundle
- * @author  h1karo <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@outlook.com>
  */
 class RelmsgClientBundle extends Bundle
 {

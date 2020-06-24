@@ -23,8 +23,7 @@ use RM\Component\Client\Security\Authenticator\Factory\AuthenticatorFactoryInter
 /**
  * Class ServiceAuthenticatorFactory
  *
- * @package RM\Bundle\ClientBundle\Security\Authenticator
- * @author  h1karo <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@outlook.com>
  */
 final class ServiceAuthenticatorFactory implements AuthenticatorFactoryInterface
 {

@@ -22,8 +22,7 @@ use RM\Component\Client\Transport\HttpTransport;
 /**
  * Class TransportType
  *
- * @package RM\Bundle\ClientBundle\Transport
- * @author  h1karo <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@outlook.com>
  */
 class TransportType
 {

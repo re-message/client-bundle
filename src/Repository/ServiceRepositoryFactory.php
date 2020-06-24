@@ -23,8 +23,7 @@ use RM\Component\Client\Repository\RepositoryInterface;
 /**
  * Class ServiceRepositoryFactory
  *
- * @package RM\Bundle\ClientBundle\Repository
- * @author  h1karo <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@outlook.com>
  */
 final class ServiceRepositoryFactory extends AbstractFactory
 {

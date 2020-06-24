@@ -25,8 +25,7 @@ use Symfony\Contracts\Service\ResetInterface;
 /**
  * Class TraceableTransport decorates to log and analysis on message sending.
  *
- * @package RM\Bundle\ClientBundle\Transport
- * @author  h1karo <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@outlook.com>
  */
 class TraceableTransport extends DecoratedTransport implements ResetInterface
 {

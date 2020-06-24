@@ -24,8 +24,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 /**
  * Class ServiceAuthenticatorListener
  *
- * @package RM\Bundle\ClientBundle\EventListener
- * @author  h1karo <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@outlook.com>
  */
 class ServiceAuthenticatorListener
 {

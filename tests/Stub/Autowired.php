@@ -26,8 +26,7 @@ use RM\Component\Client\Transport\TransportInterface;
 /**
  * Class Autowired
  *
- * @package RM\Bundle\ClientBundle\Tests\Stub
- * @author  h1karo <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@outlook.com>
  */
 class Autowired
 {
