@@ -9,9 +9,9 @@
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <directory name="src" />
+        <directory name="src"/>
         <ignoreFiles>
-            <directory name="vendor" />
+            <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
 
@@ -19,7 +19,7 @@
         <UnusedMethod>
             <errorLevel type="suppress">
 <!--                <directory name="src/Command" />-->
-                <directory name="src/EventListener" />
+                <directory name="src/EventListener"/>
                 <referencedMethod name="*::__construct"/>
             </errorLevel>
         </UnusedMethod>
@@ -36,11 +36,16 @@
 <!--                <directory name="src/Entity" />-->
 <!--                <directory name="src/Model" />-->
 <!--                <directory name="src/Command" />-->
-                <directory name="src/EventListener" />
+                <directory name="src/EventListener"/>
 <!--                <directory name="src/Twig" />-->
-                <directory name="tests/" />
+                <directory name="tests/"/>
                 <referencedMethod name="*::__construct"/>
             </errorLevel>
         </PossiblyUnusedMethod>
     </issueHandlers>
+
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
+    </plugins>
 </psalm>
