@@ -31,4 +31,6 @@ class RelmsgClientBundle extends Bundle
 
     public const APP_ID_PARAMETER = self::NAME . '.app_id';
     public const APP_SECRET_PARAMETER = self::NAME . '.app_secret';
+
+    public const ALLOW_AUTH_EXCEPTION_PARAMETER = self::NAME . '.auth.exception_on_failed';
 }

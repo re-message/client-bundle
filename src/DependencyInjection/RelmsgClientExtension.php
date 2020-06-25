@@ -58,6 +58,7 @@ class RelmsgClientExtension extends Extension
 
         $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['auth']['app_id']);
         $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['auth']['app_secret']);
+        $container->setParameter(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['auth']['exception_on_fail']);
 
         if ($config['transport']['service'] === null) {
             $type = new TransportType($config['transport']['type']);

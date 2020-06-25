@@ -51,6 +51,10 @@ class Configuration implements ConfigurationInterface
         $node
             ->addDefaultsIfNotSet()
             ->children()
+                ->booleanNode('exception_on_fail')
+                    ->info('Allow throwing exception on failed automatic authorization')
+                    ->defaultTrue()
+                ->end()
                 ->scalarNode('app_id')
                     ->defaultValue('%env(string:RM_APP_ID)%')
                     ->cannotBeEmpty()
