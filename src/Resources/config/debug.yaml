@@ -4,5 +4,11 @@ services:
         autowire: true
         autoconfigure: true
 
+    RM\Bundle\ClientBundle\DataCollector\ClientDataCollector:
+        tags:
+            -   name: data_collector
+                template: '@RelmsgClient/Collector/client.html.twig'
+                id: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::COLLECTOR
+
     RM\Bundle\ClientBundle\Transport\TraceableTransport:
         decorates: RM\Component\Client\Transport\TransportInterface

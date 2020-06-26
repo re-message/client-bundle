@@ -1,0 +1,19 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block menu %}
+    <span class="label {{ not collector.enabled ? 'disabled' }}">
+        <span class="icon">{{ include('@RelmsgClient/Icon/relmsg.svg') }}</span>
+        <strong>Relmsg Client</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Relations Messenger Client</h2>
+{% endblock %}
