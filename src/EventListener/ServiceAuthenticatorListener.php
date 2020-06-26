@@ -56,15 +56,18 @@ class ServiceAuthenticatorListener
 
         $appId = $this->parameterBag->get(RelmsgClientBundle::APP_ID_PARAMETER);
         $appSecret = $this->parameterBag->get(RelmsgClientBundle::APP_SECRET_PARAMETER);
-
         $this->authenticator->setId($appId)->setSecret($appSecret);
 
-        $allowException = $this->parameterBag->get(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER);
+        $isAutoAuth = $this->parameterBag->get(RelmsgClientBundle::AUTO_AUTH_PARAMETER);
+        if (!$isAutoAuth) {
+            return;
+        }
 
         try {
             $this->authenticator->authenticate();
         } catch (ErrorException $e) {
-            if ($allowException) {
+            $isExceptionAllowed = $this->parameterBag->get(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER);
+            if ($isExceptionAllowed) {
                 throw $e;
             }
         }
