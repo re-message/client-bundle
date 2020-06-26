@@ -16,6 +16,7 @@
 namespace RM\Bundle\ClientBundle\EventListener;
 
 use RM\Bundle\ClientBundle\RelmsgClientBundle;
+use RM\Component\Client\Exception\ErrorException;
 use RM\Component\Client\Security\Authenticator\ServiceAuthenticator;
 use RM\Component\Client\Security\Storage\AuthorizationStorageInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -28,9 +29,9 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  */
 class ServiceAuthenticatorListener
 {
-    private ServiceAuthenticator          $authenticator;
+    private ServiceAuthenticator $authenticator;
     private AuthorizationStorageInterface $storage;
-    private ParameterBagInterface         $parameterBag;
+    private ParameterBagInterface $parameterBag;
 
     public function __construct(
         ServiceAuthenticator $authenticator,
@@ -42,7 +43,12 @@ class ServiceAuthenticatorListener
         $this->parameterBag = $parameterBag;
     }
 
-    public function __invoke(RequestEvent $event)
+    /**
+     * @param RequestEvent $event
+     *
+     * @throws ErrorException
+     */
+    public function __invoke(RequestEvent $event): void
     {
         if ($this->storage->has(ServiceAuthenticator::getTokenType())) {
             return;
@@ -51,10 +57,16 @@ class ServiceAuthenticatorListener
         $appId = $this->parameterBag->get(RelmsgClientBundle::APP_ID_PARAMETER);
         $appSecret = $this->parameterBag->get(RelmsgClientBundle::APP_SECRET_PARAMETER);
 
-        $this->authenticator
-            ->setId($appId)
-            ->setSecret($appSecret)
-            ->authenticate()
-        ;
+        $this->authenticator->setId($appId)->setSecret($appSecret);
+
+        $allowException = $this->parameterBag->get(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER);
+
+        try {
+            $this->authenticator->authenticate();
+        } catch (ErrorException $e) {
+            if ($allowException) {
+                throw $e;
+            }
+        }
     }
 }
