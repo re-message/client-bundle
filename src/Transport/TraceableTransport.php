@@ -71,4 +71,12 @@ class TraceableTransport extends DecoratedTransport implements ResetInterface
     {
         $this->interactions = [];
     }
+
+    /**
+     * @return MessageInterface[][]
+     */
+    public function getInteractions(): array
+    {
+        return $this->interactions;
+    }
 }

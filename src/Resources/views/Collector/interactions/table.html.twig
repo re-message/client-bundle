@@ -1,0 +1,25 @@
+<table>
+    <colgroup>
+        <col style="width: 30px;">
+        <col style="width: 70px">
+        <col style="width: 50%;">
+        <col style="width: 70px">
+        <col style="width: 50%;">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th colspan="2">Sent message</th>
+        <th colspan="2">Received message</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for interaction in interactions %}
+        {% include '@RelmsgClient/Collector/interactions/row.html.twig' with {
+            sent: interaction[0],
+            received: interaction[1],
+            index: loop.index
+        } only %}
+    {% endfor %}
+    </tbody>
+</table>

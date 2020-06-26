@@ -1,0 +1,19 @@
+<tr>
+    <td class="font-normal text-muted nowrap">{{ index }}</td>
+    <td>
+        <span class="label same-width break-long-words {{ sent.type != 'error' ? 'status-success' : 'status-error' }}">
+            {{ sent.type|upper }}
+        </span>
+    </td>
+    <td class="break-long-words">
+        {{ profiler_dump(sent.content, maxDepth=1) }}
+    </td>
+    <td class="break-long-words">
+        <span class="label same-width break-long-words {{ received.type != 'error' ? 'status-success' : 'status-error' }}">
+            {{ received.type|upper }}
+        </span>
+    </td>
+    <td class="break-long-words">
+        {{ profiler_dump(received.content, maxDepth=1) }}
+    </td>
+</tr>

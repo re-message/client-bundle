@@ -8,12 +8,21 @@
 {% endblock %}
 
 {% block menu %}
-    <span class="label {{ not collector.enabled ? 'disabled' }}">
+    <span class="label {{ collector.hasErrors ? 'label-status-warning' }} {{ not collector.enabled ? 'disabled' }}">
         <span class="icon">{{ include('@RelmsgClient/Icon/relmsg.svg') }}</span>
         <strong>Relmsg Client</strong>
+        {% if collector.interactions|length %}
+            <span class="count">
+                {{ collector.interactions|length }}
+            </span>
+        {% endif %}
     </span>
 {% endblock %}
 
 {% block panel %}
     <h2>Relations Messenger Client</h2>
+
+    {% include '@RelmsgClient/Collector/interactions/index.html.twig' with {
+        interactions: collector.interactions
+    } only %}
 {% endblock %}
