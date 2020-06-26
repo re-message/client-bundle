@@ -15,6 +15,7 @@
 
 namespace RM\Bundle\ClientBundle\EventListener;
 
+use RM\Bundle\ClientBundle\Exception\AuthorizationFailedException;
 use RM\Bundle\ClientBundle\RelmsgClientBundle;
 use RM\Component\Client\Exception\ErrorException;
 use RM\Component\Client\Security\Authenticator\ServiceAuthenticator;
@@ -46,7 +47,7 @@ class ServiceAuthenticatorListener
     /**
      * @param RequestEvent $event
      *
-     * @throws ErrorException
+     * @throws AuthorizationFailedException
      */
     public function __invoke(RequestEvent $event): void
     {
@@ -67,9 +68,11 @@ class ServiceAuthenticatorListener
             $this->authenticator->authenticate();
         } catch (ErrorException $e) {
             $isExceptionAllowed = $this->parameterBag->get(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER);
-            if ($isExceptionAllowed) {
-                throw $e;
+            if (!$isExceptionAllowed) {
+                return;
             }
+
+            throw new AuthorizationFailedException($e);
         }
     }
 }
