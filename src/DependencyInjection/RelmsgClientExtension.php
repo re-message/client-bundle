@@ -67,6 +67,7 @@ class RelmsgClientExtension extends Extension
 
             $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['auth']['app_id']);
             $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['auth']['app_secret']);
+            $container->setParameter(RelmsgClientBundle::AUTO_AUTH_PARAMETER, $config['auth']['auto']);
             $container->setParameter(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['auth']['exception_on_fail']);
         }
 
