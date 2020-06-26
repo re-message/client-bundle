@@ -3,7 +3,7 @@
 {% block head %}
     {{ parent() }}
     <style>
-
+        {{ include('@RelmsgClient/Collector/client.css.twig') }}
     </style>
 {% endblock %}
 
@@ -21,6 +21,35 @@
 
 {% block panel %}
     <h2>Relations Messenger Client</h2>
+
+    <div class="metrics rm-subjects">
+        <div class="metric">
+            <span class="value {{ collector.application is not null ? 'flex' }}">
+                {% if collector.application is null %}
+                    n/a
+                {% else %}
+                    {% if collector.application.photo is not null %}
+                        {# todo photo view #}
+                        {#<img class="photo" src="" width="80" height="80" alt="{{ collector.application.name }}" />#}
+                    {% else %}
+                        <div class="photo initials">{{ collector.application.initials }}</div>
+                    {% endif %}
+                    <div class="text">
+                        <span class="name">{{ collector.application.name }}</span>
+                        <span class="id text-muted">#{{ collector.application.id }}</span>
+                    </div>
+                {% endif %}
+            </span>
+            <span class="label">Application</span>
+        </div>
+
+        <div class="metric">
+            <span class="value">
+                n/a
+            </span>
+            <span class="label">User</span>
+        </div>
+    </div>
 
     {% include '@RelmsgClient/Collector/interactions/index.html.twig' with {
         interactions: collector.interactions

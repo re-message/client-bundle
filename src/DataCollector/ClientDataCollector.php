@@ -4,6 +4,8 @@ namespace RM\Bundle\ClientBundle\DataCollector;
 
 use RM\Bundle\ClientBundle\RelmsgClientBundle;
 use RM\Bundle\ClientBundle\Transport\TraceableTransport;
+use RM\Component\Client\ClientInterface;
+use RM\Component\Client\Entity\Application;
 use RM\Component\Client\Transport\TransportInterface;
 use RM\Standard\Message\MessageInterface;
 use RM\Standard\Message\MessageType;
@@ -16,16 +18,21 @@ use Traversable;
 
 class ClientDataCollector extends DataCollector implements LateDataCollectorInterface
 {
+    private ClientInterface $client;
     private TransportInterface $transport;
 
-    public function __construct(TransportInterface $transport)
+    public function __construct(ClientInterface $client, TransportInterface $transport)
     {
+        $this->client = $client;
         $this->transport = $transport;
     }
 
     public function collect(Request $request, Response $response, Throwable $exception = null): void
     {
         $this->reset();
+
+        $application = $this->client->getApplication();
+        $this->data['application'] = $this->cloneApplication($application);
     }
 
     public function lateCollect(): void
@@ -57,6 +64,11 @@ class ClientDataCollector extends DataCollector implements LateDataCollectorInte
         return false;
     }
 
+    public function getApplication()
+    {
+        return $this->data['application'];
+    }
+
     public function getName(): string
     {
         return RelmsgClientBundle::NAME;
@@ -65,7 +77,22 @@ class ClientDataCollector extends DataCollector implements LateDataCollectorInte
     public function reset(): void
     {
         $this->data = [
+            'application' => null,
             'interactions' => [],
+        ];
+    }
+
+    private function cloneApplication(?Application $application): ?array
+    {
+        if (null === $application) {
+            return null;
+        }
+
+        return [
+            'id' => $application->getId(),
+            'name' => $application->getName(),
+            'initials' => $application->getInitials(),
+            'photo' => null,
         ];
     }
 
