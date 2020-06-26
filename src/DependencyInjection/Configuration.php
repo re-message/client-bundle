@@ -49,6 +49,7 @@ class Configuration implements ConfigurationInterface
         $builder = new TreeBuilder('auth');
         $node = $builder->getRootNode();
         $node
+            ->canBeDisabled()
             ->addDefaultsIfNotSet()
             ->children()
                 ->booleanNode('exception_on_fail')

@@ -16,6 +16,7 @@
 namespace RM\Bundle\ClientBundle\DependencyInjection;
 
 use Exception;
+use RM\Bundle\ClientBundle\EventListener\ServiceAuthenticatorListener;
 use RM\Bundle\ClientBundle\RelmsgClientBundle;
 use RM\Bundle\ClientBundle\Transport\TransportType;
 use RM\Component\Client\Transport\HttpTransport;
@@ -50,15 +51,24 @@ class RelmsgClientExtension extends Extension
         $loader->load('hydrators.yaml');
         $loader->load('repositories.yaml');
         $loader->load('security.yaml');
-        $loader->load('listeners.yaml');
 
         if ($container->hasParameter('kernel.debug') && $container->getParameter('kernel.debug')) {
             $loader->load('debug.yaml');
         }
 
-        $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['auth']['app_id']);
-        $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['auth']['app_secret']);
-        $container->setParameter(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['auth']['exception_on_fail']);
+        $isAuthEnabled = $config['auth']['enabled'];
+        if ($isAuthEnabled) {
+            $container
+                ->register(ServiceAuthenticatorListener::class)
+                ->setAutowired(true)
+                ->setAutoconfigured(true)
+                ->addTag('kernel.event_listener')
+            ;
+
+            $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['auth']['app_id']);
+            $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['auth']['app_secret']);
+            $container->setParameter(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['auth']['exception_on_fail']);
+        }
 
         if ($config['transport']['service'] === null) {
             $type = new TransportType($config['transport']['type']);
