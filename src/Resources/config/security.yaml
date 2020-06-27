@@ -9,13 +9,13 @@ services:
     RM\Bundle\ClientBundle\Security\Storage\SessionAuthorizationStorage: null
 
     RM\Component\Client\Security\Authenticator\Factory\AuthenticatorFactoryInterface:
-        alias: RM\Bundle\ClientBundle\Security\Authenticator\ServiceAuthenticatorFactory
-    RM\Bundle\ClientBundle\Security\Authenticator\ServiceAuthenticatorFactory:
+        alias: RM\Bundle\ClientBundle\Security\Authenticator\Factory\ServiceAuthenticatorFactory
+    RM\Bundle\ClientBundle\Security\Authenticator\Factory\ServiceAuthenticatorFactory:
         arguments:
             $container: !tagged_locator
                 tag: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_AUTHENTICATOR
     RM\Component\Client\Security\Authenticator\Factory\AliasedAuthenticatorFactory:
-        decorates: RM\Bundle\ClientBundle\Security\Authenticator\ServiceAuthenticatorFactory
+        decorates: RM\Bundle\ClientBundle\Security\Authenticator\Factory\ServiceAuthenticatorFactory
 
     RM\Component\Client\Security\Loader\YamlLoader: null
     RM\Component\Client\Security\Resolver\AuthorizationResolverInterface:

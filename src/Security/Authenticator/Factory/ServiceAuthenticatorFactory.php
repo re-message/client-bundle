@@ -13,7 +13,7 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Bundle\ClientBundle\Security\Authenticator;
+namespace RM\Bundle\ClientBundle\Security\Authenticator\Factory;
 
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
