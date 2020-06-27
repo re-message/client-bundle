@@ -37,3 +37,5 @@ services:
                 -   setStorage: ['@RM\Component\Client\Security\Storage\AuthorizationStorageInterface']
 
     RM\Component\Client\Security\Authenticator\ServiceAuthenticator: null
+    RM\Component\Client\Security\Authenticator\CodeAuthenticator: null
+    RM\Component\Client\Security\Authenticator\SignInAuthenticator: null
