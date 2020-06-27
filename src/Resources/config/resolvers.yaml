@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    RM\Component\Client\Security\Loader\YamlLoader: null
+    RM\Component\Client\Security\Resolver\AuthorizationResolverInterface:
+        alias: RM\Component\Client\Security\Resolver\FileResolver
+    RM\Component\Client\Security\Resolver\FileResolver:
+        arguments:
+            $loader: '@RM\Component\Client\Security\Loader\YamlLoader'
+            $path: !php/const RM\Component\Client\ClientFactory::CONFIG_PATH

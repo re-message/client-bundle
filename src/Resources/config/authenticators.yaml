@@ -4,10 +4,6 @@ services:
         autowire: true
         autoconfigure: true
 
-    RM\Component\Client\Security\Storage\AuthorizationStorageInterface:
-        alias: RM\Bundle\ClientBundle\Security\Storage\SessionAuthorizationStorage
-    RM\Bundle\ClientBundle\Security\Storage\SessionAuthorizationStorage: null
-
     RM\Component\Client\Security\Authenticator\Factory\AuthenticatorFactoryInterface:
         alias: RM\Bundle\ClientBundle\Security\Authenticator\Factory\ServiceAuthenticatorFactory
     RM\Bundle\ClientBundle\Security\Authenticator\Factory\ServiceAuthenticatorFactory:
@@ -16,14 +12,6 @@ services:
                 tag: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_AUTHENTICATOR
     RM\Component\Client\Security\Authenticator\Factory\AliasedAuthenticatorFactory:
         decorates: RM\Bundle\ClientBundle\Security\Authenticator\Factory\ServiceAuthenticatorFactory
-
-    RM\Component\Client\Security\Loader\YamlLoader: null
-    RM\Component\Client\Security\Resolver\AuthorizationResolverInterface:
-        alias: RM\Component\Client\Security\Resolver\FileResolver
-    RM\Component\Client\Security\Resolver\FileResolver:
-        arguments:
-            $loader: '@RM\Component\Client\Security\Loader\YamlLoader'
-            $path: !php/const RM\Component\Client\ClientFactory::CONFIG_PATH
 
     _instanceof:
         RM\Component\Client\Security\Authenticator\AuthenticatorInterface:

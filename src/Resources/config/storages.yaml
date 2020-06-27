@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    RM\Component\Client\Security\Storage\AuthorizationStorageInterface:
+        alias: RM\Bundle\ClientBundle\Security\Storage\SessionAuthorizationStorage
+    RM\Bundle\ClientBundle\Security\Storage\SessionAuthorizationStorage: null

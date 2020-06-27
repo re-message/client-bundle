@@ -50,7 +50,9 @@ class RelmsgClientExtension extends Extension
         $loader->load('transports.yaml');
         $loader->load('hydrators.yaml');
         $loader->load('repositories.yaml');
-        $loader->load('security.yaml');
+        $loader->load('authenticators.yaml');
+        $loader->load('storages.yaml');
+        $loader->load('resolvers.yaml');
 
         if ($container->hasParameter('kernel.debug') && $container->getParameter('kernel.debug')) {
             $loader->load('debug.yaml');
