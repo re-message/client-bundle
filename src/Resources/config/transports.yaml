@@ -4,6 +4,11 @@ services:
         autowire: true
         autoconfigure: true
 
+    _instanceof:
+        RM\Component\Client\Transport\TransportInterface:
+            calls:
+                -   setResolver: ['@RM\Component\Client\Security\Resolver\AuthorizationResolverInterface']
+
     RM\Component\Client\Transport\ThrowableTransport:
         decorates: RM\Component\Client\Transport\TransportInterface
     RM\Component\Client\Transport\HttpTransport: null
