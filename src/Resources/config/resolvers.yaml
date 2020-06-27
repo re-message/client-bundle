@@ -4,7 +4,9 @@ services:
         autowire: true
         autoconfigure: true
 
-    RM\Component\Client\Security\Loader\YamlLoader: null
+    RM\Component\Client\Security\Loader\YamlLoader:
+        arguments:
+            $locator: '@file_locator'
     RM\Component\Client\Security\Resolver\AuthorizationResolverInterface:
         alias: RM\Component\Client\Security\Resolver\FileResolver
     RM\Component\Client\Security\Resolver\FileResolver:
