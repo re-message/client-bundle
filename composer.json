@@ -25,7 +25,7 @@
     "require": {
         "php": "^7.4",
 
-        "relmsg/client": "^0.4",
+        "relmsg/client": "^0.5",
         "relmsg/message-bundle": "^0.9",
 
         "symfony/http-client": "^4.4|^5.0",
