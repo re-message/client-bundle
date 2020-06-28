@@ -19,6 +19,7 @@ use RM\Bundle\ClientBundle\RelmsgClientBundle;
 use RM\Bundle\ClientBundle\Transport\TraceableTransport;
 use RM\Component\Client\ClientInterface;
 use RM\Component\Client\Entity\Application;
+use RM\Component\Client\Entity\User;
 use RM\Component\Client\Transport\TransportInterface;
 use RM\Standard\Message\MessageInterface;
 use RM\Standard\Message\MessageType;
@@ -44,8 +45,8 @@ class ClientDataCollector extends DataCollector implements LateDataCollectorInte
     {
         $this->reset();
 
-        $application = $this->client->getApplication();
-        $this->data['application'] = $this->cloneApplication($application);
+        $this->data['application'] = $this->cloneApplication($this->client->getApplication());
+        $this->data['user'] = $this->cloneUser($this->client->getUser());
     }
 
     public function lateCollect(): void
@@ -82,6 +83,11 @@ class ClientDataCollector extends DataCollector implements LateDataCollectorInte
         return $this->data['application'];
     }
 
+    public function getUser()
+    {
+        return $this->data['user'];
+    }
+
     public function getName(): string
     {
         return RelmsgClientBundle::NAME;
@@ -91,6 +97,7 @@ class ClientDataCollector extends DataCollector implements LateDataCollectorInte
     {
         $this->data = [
             'application' => null,
+            'user' => null,
             'interactions' => [],
         ];
     }
@@ -105,6 +112,20 @@ class ClientDataCollector extends DataCollector implements LateDataCollectorInte
             'id' => $application->getId(),
             'name' => $application->getName(),
             'initials' => $application->getInitials(),
+            'photo' => null,
+        ];
+    }
+
+    private function cloneUser(?User $user): ?array
+    {
+        if (null === $user) {
+            return null;
+        }
+
+        return [
+            'id' => $user->getId(),
+            'name' => $user->getFullName(),
+            'initials' => $user->getInitials(),
             'photo' => null,
         ];
     }
