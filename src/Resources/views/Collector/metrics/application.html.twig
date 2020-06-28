@@ -1,0 +1,19 @@
+<div class="metric">
+    <span class="value {{ application is not null ? 'flex' }}">
+        {% if application is null %}
+            n/a
+        {% else %}
+            {% if application.photo is not null %}
+                {# todo photo view #}
+                {#<img class="photo" src="" width="80" height="80" alt="{{ application.name }}" />#}
+            {% else %}
+                <div class="photo initials">{{ application.initials }}</div>
+            {% endif %}
+            <div class="text">
+                <span class="name">{{ application.name }}</span>
+                <span class="id text-muted">#{{ application.id }}</span>
+            </div>
+        {% endif %}
+    </span>
+    <span class="label">Application</span>
+</div>

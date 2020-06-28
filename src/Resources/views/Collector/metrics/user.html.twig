@@ -1,0 +1,20 @@
+<div class="metric">
+    <span class="value {{ user is not null ? 'flex' }}">
+        {% if user is null %}
+            n/a
+        {% else %}
+            {% if user.photo is not null %}
+                {# todo photo view #}
+                {# <img class="photo" src="" width="80" height="80" alt="{{ user.name }}" /> #}
+            {% else %}
+                <div class="photo initials">{{ user.initials }}</div>
+            {% endif %}
+
+            <div class="text">
+                <span class="name">{{ user.name }}</span>
+                <span class="id text-muted">#{{ user.id }}</span>
+            </div>
+        {% endif %}
+    </span>
+    <span class="label">User</span>
+</div>
