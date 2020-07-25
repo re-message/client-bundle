@@ -20,6 +20,7 @@ use RM\Bundle\ClientBundle\Transport\TraceableTransport;
 use RM\Component\Client\ClientInterface;
 use RM\Component\Client\Entity\Application;
 use RM\Component\Client\Entity\User;
+use RM\Component\Client\Exception\ErrorException;
 use RM\Component\Client\Transport\TransportInterface;
 use RM\Standard\Message\MessageInterface;
 use RM\Standard\Message\MessageType;
@@ -45,8 +46,20 @@ class ClientDataCollector extends DataCollector implements LateDataCollectorInte
     {
         $this->reset();
 
-        $this->data['application'] = $this->cloneApplication($this->client->getApplication());
-        $this->data['user'] = $this->cloneUser($this->client->getUser());
+        try {
+            $application = $this->client->getApplication();
+        } catch (ErrorException $exception) {
+            $application = null;
+        }
+
+        try {
+            $user = $this->client->getUser();
+        } catch (ErrorException $exception) {
+            $user = null;
+        }
+
+        $this->data['application'] = $this->cloneApplication($application);
+        $this->data['user'] = $this->cloneUser($user);
     }
 
     public function lateCollect(): void
