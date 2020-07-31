@@ -36,4 +36,12 @@ class RelmsgClientBundle extends Bundle
     public const AUTO_AUTH_PARAMETER = self::NAME . '.auth.auto_auth';
 
     public const COLLECTOR = self::NAME;
+
+    /**
+     * @inheritDoc
+     */
+    public function getPath(): string
+    {
+        return dirname(parent::getPath());
+    }
 }
