@@ -23,7 +23,7 @@
         }
     },
     "require": {
-        "php": "^7.4",
+        "php": ">=7.4",
 
         "relmsg/client": "^0.5",
         "relmsg/message-bundle": "^0.9",
