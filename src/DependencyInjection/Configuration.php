@@ -16,6 +16,7 @@
 namespace RM\Bundle\ClientBundle\DependencyInjection;
 
 use RM\Bundle\ClientBundle\Transport\TransportType;
+use RM\Component\Client\Entity\User;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -39,6 +40,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->append($this->getTransportNode())
                 ->append($this->getAuthNode())
+                ->append($this->getEntitiesNode())
             ->end()
         ;
         return $treeBuilder;
@@ -90,6 +92,33 @@ class Configuration implements ConfigurationInterface
             ->beforeNormalization()
                 ->ifString()
                 ->then(fn(string $v) => ['type' => $v])
+            ->end()
+        ;
+        return $node;
+    }
+
+    private function getEntitiesNode(): NodeDefinition
+    {
+        $builder = new TreeBuilder('entities');
+        $node = $builder->getRootNode();
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('user')
+                    ->children()
+                        ->scalarNode('class')
+                            ->defaultValue(User::class)
+                            ->validate()
+                                ->ifTrue(fn (string $class) => !class_exists($class))
+                                ->thenInvalid('The entity class must exist.')
+                            ->end()
+                            ->validate()
+                                ->ifTrue(fn (string $class) => !is_subclass_of($class, User::class, true))
+                                ->thenInvalid('The entity class must extend the base class.')
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
         return $node;
