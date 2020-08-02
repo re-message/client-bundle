@@ -58,23 +58,34 @@ class RelmsgClientExtension extends Extension
             $loader->load('debug.yaml');
         }
 
-        $isAuthEnabled = $config['auth']['enabled'];
-        if ($isAuthEnabled) {
-            $container
-                ->register(ServiceAuthenticatorListener::class)
-                ->setAutowired(true)
-                ->setAutoconfigured(true)
-                ->addTag('kernel.event_listener')
-            ;
+        $this->registerServiceAuthenticatorListener($config['auth'], $container);
+        $this->registerTransport($config['transport'], $container);
+    }
 
-            $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['auth']['app_id']);
-            $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['auth']['app_secret']);
-            $container->setParameter(RelmsgClientBundle::AUTO_AUTH_PARAMETER, $config['auth']['auto']);
-            $container->setParameter(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['auth']['exception_on_fail']);
+    private function registerServiceAuthenticatorListener(array $config, ContainerBuilder $container): void
+    {
+        $isAuthEnabled = $config['enabled'];
+        if (!$isAuthEnabled) {
+            return;
         }
 
-        if ($config['transport']['service'] === null) {
-            $type = new TransportType($config['transport']['type']);
+        $container
+            ->register(ServiceAuthenticatorListener::class)
+            ->setAutowired(true)
+            ->setAutoconfigured(true)
+            ->addTag('kernel.event_listener')
+        ;
+
+        $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['app_id']);
+        $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['app_secret']);
+        $container->setParameter(RelmsgClientBundle::AUTO_AUTH_PARAMETER, $config['auto']);
+        $container->setParameter(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['exception_on_fail']);
+    }
+
+    private function registerTransport(array $config, ContainerBuilder $container): void
+    {
+        if ($config['service'] === null) {
+            $type = new TransportType($config['type']);
             $class = $this->getTransportClass($type);
             $this->registerOrAlias($container, TransportInterface::class, $class);
         }
