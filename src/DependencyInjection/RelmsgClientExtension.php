@@ -87,8 +87,11 @@ class RelmsgClientExtension extends Extension
         if ($config['service'] === null) {
             $type = new TransportType($config['type']);
             $class = $this->getTransportClass($type);
-            $this->registerOrAlias($container, TransportInterface::class, $class);
+        } else {
+            $class = $config['service'];
         }
+
+        $this->registerOrAlias($container, TransportInterface::class, $class);
     }
 
     protected function getTransportClass(TransportType $type): string
