@@ -23,4 +23,6 @@ services:
                 - { name: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_REPOSITORY }
 
     RM\Bundle\ClientBundle\Repository\UserRepository: null
+    RM\Component\Client\Repository\UserRepository:
+        alias: RM\Bundle\ClientBundle\Repository\UserRepository
     RM\Component\Client\Repository\ApplicationRepository: null
