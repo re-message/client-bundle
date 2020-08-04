@@ -17,7 +17,9 @@ namespace RM\Bundle\ClientBundle\DependencyInjection;
 
 use Exception;
 use RM\Bundle\ClientBundle\EventListener\ServiceAuthenticatorListener;
+use RM\Bundle\ClientBundle\Hydrator\DoctrineHydrator;
 use RM\Bundle\ClientBundle\RelmsgClientBundle;
+use RM\Bundle\ClientBundle\Repository\UserRepository;
 use RM\Bundle\ClientBundle\Transport\TransportType;
 use RM\Component\Client\Transport\HttpTransport;
 use RM\Component\Client\Transport\TransportInterface;
@@ -60,6 +62,7 @@ class RelmsgClientExtension extends Extension
 
         $this->registerServiceAuthenticatorListener($config['auth'], $container);
         $this->registerTransport($config['transport'], $container);
+        $this->registerEntities($config['entities'], $container);
     }
 
     private function registerServiceAuthenticatorListener(array $config, ContainerBuilder $container): void
@@ -110,5 +113,25 @@ class RelmsgClientExtension extends Extension
         } else {
             $container->register($alias, $class);
         }
+    }
+
+    private function registerEntities(array $config, ContainerBuilder $container): void
+    {
+        $container
+            ->getDefinition(DoctrineHydrator::class)
+            ->setArgument(
+                3,
+                array_combine(
+                    array_map(fn (array $entity) => $entity['class'], $config),
+                    array_map(fn (array $entity) => $entity['doctrine'], $config)
+                )
+            )
+        ;
+
+        $userClass = $config['user']['class'];
+        $container
+            ->getDefinition(UserRepository::class)
+            ->setArgument(3, $userClass)
+        ;
     }
 }
