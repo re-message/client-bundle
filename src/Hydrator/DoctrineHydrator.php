@@ -22,11 +22,13 @@ use RM\Component\Client\Hydrator\EntityHydrator;
 class DoctrineHydrator extends DecoratedHydrator
 {
     private EntityManagerInterface $entityManager;
+    private array $entities;
 
-    public function __construct(EntityHydrator $hydrator, EntityManagerInterface $entityManager)
+    public function __construct(EntityHydrator $hydrator, EntityManagerInterface $entityManager, array $entities = [])
     {
         parent::__construct($hydrator);
         $this->entityManager = $entityManager;
+        $this->entities = $entities;
     }
 
     /**
@@ -36,9 +38,17 @@ class DoctrineHydrator extends DecoratedHydrator
     {
         $entity = parent::hydrate($data, $class);
 
-        $this->entityManager->persist($entity);
-        $this->entityManager->refresh($entity);
+        if ($this->isDoctrineEntity($entity)) {
+            $this->entityManager->persist($entity);
+            $this->entityManager->refresh($entity);
+        }
 
         return $entity;
+    }
+
+    public function isDoctrineEntity(object $entity): bool
+    {
+        $class = get_class($entity);
+        return $this->entities[$class] ?? false === true;
     }
 }
