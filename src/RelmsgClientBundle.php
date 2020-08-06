@@ -15,6 +15,8 @@
 
 namespace RM\Bundle\ClientBundle;
 
+use RM\Bundle\ClientBundle\DependencyInjection\Compiler\ServiceRepositoryFactoryPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -43,5 +45,13 @@ class RelmsgClientBundle extends Bundle
     public function getPath(): string
     {
         return dirname(parent::getPath());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function build(ContainerBuilder $container): void
+    {
+        $container->addCompilerPass(new ServiceRepositoryFactoryPass());
     }
 }

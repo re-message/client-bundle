@@ -11,18 +11,16 @@ services:
 
     RM\Component\Client\Repository\Factory\RepositoryFactoryInterface:
         alias: RM\Bundle\ClientBundle\Repository\ServiceRepositoryFactory
-    RM\Bundle\ClientBundle\Repository\ServiceRepositoryFactory:
-        arguments:
-            $container: !tagged_locator
-                tag: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_REPOSITORY
+    RM\Bundle\ClientBundle\Repository\ServiceRepositoryFactory: null
 
     _instanceof:
         RM\Component\Client\Repository\RepositoryInterface:
             public: true
             tags:
-                - { name: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_REPOSITORY }
+                - name: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_REPOSITORY
 
-    RM\Bundle\ClientBundle\Repository\UserRepository: null
-    RM\Component\Client\Repository\UserRepository:
-        alias: RM\Bundle\ClientBundle\Repository\UserRepository
+    RM\Bundle\ClientBundle\Repository\UserRepository:
+        tags:
+            - name: !php/const RM\Bundle\ClientBundle\RelmsgClientBundle::TAG_REPOSITORY
+              alias: RM\Component\Client\Repository\UserRepository
     RM\Component\Client\Repository\ApplicationRepository: null

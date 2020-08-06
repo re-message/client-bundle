@@ -15,8 +15,10 @@
 
 namespace RM\Bundle\ClientBundle\Repository;
 
+use BadMethodCallException;
 use Doctrine\Common\Annotations\Reader;
-use Psr\Container\ContainerInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use RM\Component\Client\Repository\Factory\AbstractFactory;
 use RM\Component\Client\Repository\RepositoryInterface;
 
@@ -27,17 +29,29 @@ use RM\Component\Client\Repository\RepositoryInterface;
  */
 final class ServiceRepositoryFactory extends AbstractFactory
 {
-    private ContainerInterface $container;
+    private Collection $repositories;
 
-    public function __construct(ContainerInterface $container, Reader $reader)
+    public function __construct(Reader $reader)
     {
         parent::__construct($reader);
-        $this->container = $container;
+
+        $this->repositories = new ArrayCollection();
+    }
+
+    public function setRepository(RepositoryInterface $repository, ?string $name = null): void
+    {
+        $name = $name ?? get_class($repository);
+
+        if ($this->repositories->containsKey($name)) {
+            throw new BadMethodCallException('Cannot overwrite already passed repositories.');
+        }
+
+        $this->repositories->set($name, $repository);
     }
 
     public function build(string $entity): RepositoryInterface
     {
         $class = $this->getRepositoryClass($entity);
-        return $this->container->get($class);
+        return $this->repositories->get($class);
     }
 }
