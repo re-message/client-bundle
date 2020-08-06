@@ -120,7 +120,7 @@ class RelmsgClientExtension extends Extension
         $container
             ->getDefinition(DoctrineHydrator::class)
             ->setArgument(
-                3,
+                '$entities',
                 array_combine(
                     array_map(fn (array $entity) => $entity['class'], $config),
                     array_map(fn (array $entity) => $entity['doctrine'], $config)
@@ -131,7 +131,7 @@ class RelmsgClientExtension extends Extension
         $userClass = $config['user']['class'];
         $container
             ->getDefinition(UserRepository::class)
-            ->setArgument(3, $userClass)
+            ->setArgument('$class', $userClass)
         ;
     }
 }
