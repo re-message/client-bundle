@@ -25,6 +25,7 @@ use RM\Component\Client\Transport\HttpTransport;
 use RM\Component\Client\Transport\TransportInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use UnexpectedValueException;
@@ -46,6 +47,9 @@ class RelmsgClientExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $phpLoader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+        $phpLoader->load('listeners.php');
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('client.yaml');
