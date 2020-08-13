@@ -28,7 +28,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  *
  * @author Oleg Kozlov <h1karo@relmsg.ru>
  */
-class ServiceAuthenticatorListener
+class ServiceAuthenticatorListener extends DisableListener
 {
     private ServiceAuthenticator $authenticator;
     private AuthorizationStorageInterface $storage;
@@ -51,6 +51,10 @@ class ServiceAuthenticatorListener
      */
     public function __invoke(RequestEvent $event): void
     {
+        if (!$this->isEnabled()) {
+            return;
+        }
+
         if ($this->storage->has(ServiceAuthenticator::getTokenType())) {
             return;
         }

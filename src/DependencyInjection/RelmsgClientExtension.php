@@ -69,15 +69,13 @@ class RelmsgClientExtension extends Extension
     {
         $isAuthEnabled = $config['enabled'];
         if (!$isAuthEnabled) {
+            $container
+                ->getDefinition(ServiceAuthenticatorListener::class)
+                ->addMethodCall('disable')
+            ;
+
             return;
         }
-
-        $container
-            ->register(ServiceAuthenticatorListener::class)
-            ->setAutowired(true)
-            ->setAutoconfigured(true)
-            ->addTag('kernel.event_listener')
-        ;
 
         $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['app_id']);
         $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['app_secret']);
