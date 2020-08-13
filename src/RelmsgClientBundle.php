@@ -37,6 +37,8 @@ class RelmsgClientBundle extends Bundle
     public const ALLOW_AUTH_EXCEPTION_PARAMETER = self::NAME . '.auth.exception_on_failed';
     public const AUTO_AUTH_PARAMETER = self::NAME . '.auth.auto_auth';
 
+    public const ENTITIES_PARAMETER = self::NAME . '.entities';
+
     public const COLLECTOR = self::NAME;
 
     /**

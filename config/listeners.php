@@ -13,6 +13,7 @@
  * file that was distributed with this source code.
  */
 
+use RM\Bundle\ClientBundle\RelmsgClientBundle;
 use RM\Component\Client\EventListener\LazyLoadListener;
 use RM\Component\Client\EventListener\ThrowableSendListener;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -22,6 +23,7 @@ return static function (ContainerConfigurator $container) {
         ->defaults()
             ->autowire(true)
             ->autoconfigure(true)
+            ->bind('array $entities', '%' . RelmsgClientBundle::ENTITIES_PARAMETER . '%')
         ->set(ThrowableSendListener::class)
             ->tag('kernel.event_listener')
         ->set(LazyLoadListener::class)

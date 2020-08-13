@@ -17,7 +17,6 @@ namespace RM\Bundle\ClientBundle\DependencyInjection;
 
 use Exception;
 use RM\Bundle\ClientBundle\EventListener\ServiceAuthenticatorListener;
-use RM\Bundle\ClientBundle\Hydrator\DoctrineHydrator;
 use RM\Bundle\ClientBundle\RelmsgClientBundle;
 use RM\Bundle\ClientBundle\Repository\UserRepository;
 use RM\Bundle\ClientBundle\Transport\TransportType;
@@ -119,16 +118,12 @@ class RelmsgClientExtension extends Extension
 
     private function registerEntities(array $config, ContainerBuilder $container): void
     {
-        $container
-            ->getDefinition(DoctrineHydrator::class)
-            ->setArgument(
-                '$entities',
-                array_combine(
-                    array_map(fn (array $entity) => $entity['class'], $config),
-                    array_map(fn (array $entity) => $entity['doctrine'], $config)
-                )
-            )
-        ;
+        $entities = array_combine(
+            array_map(fn(array $entity) => $entity['class'], $config),
+            array_map(fn(array $entity) => $entity['doctrine'], $config)
+        );
+
+        $container->setParameter(RelmsgClientBundle::ENTITIES_PARAMETER, $entities);
 
         $userClass = $config['user']['class'];
         $container

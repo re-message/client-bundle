@@ -13,37 +13,37 @@
  * file that was distributed with this source code.
  */
 
-namespace RM\Bundle\ClientBundle\Hydrator;
+namespace RM\Bundle\ClientBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use RM\Component\Client\Hydrator\DecoratedHydrator;
-use RM\Component\Client\Hydrator\EntityHydrator;
+use RM\Component\Client\Event\HydratedEvent;
 
-class DoctrineHydrator extends DecoratedHydrator
+/**
+ * Class HydrationListener.
+ *
+ * @author Oleg Kozlov <h1karo@relmsg.ru>
+ */
+class HydrationListener
 {
     private EntityManagerInterface $entityManager;
     private array $entities;
 
-    public function __construct(EntityHydrator $hydrator, EntityManagerInterface $entityManager, array $entities = [])
+    public function __construct(EntityManagerInterface $entityManager, array $entities = [])
     {
-        parent::__construct($hydrator);
         $this->entityManager = $entityManager;
         $this->entities = $entities;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function hydrate(array $data, string $class): object
+    public function __invoke(HydratedEvent $event): void
     {
-        $entity = parent::hydrate($data, $class);
+        $entity = $event->getEntity();
 
         if ($this->isDoctrineEntity($entity)) {
             $this->entityManager->persist($entity);
             $this->entityManager->refresh($entity);
-        }
 
-        return $entity;
+            $event->setEntity($entity);
+        }
     }
 
     public function isDoctrineEntity(object $entity): bool

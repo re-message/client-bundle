@@ -7,6 +7,3 @@ services:
     RM\Component\Client\Hydrator\HydratorInterface:
         alias: RM\Component\Client\Hydrator\EntityHydrator
     RM\Component\Client\Hydrator\EntityHydrator: null
-    RM\Bundle\ClientBundle\Hydrator\DoctrineHydrator:
-        decorates: RM\Component\Client\Hydrator\HydratorInterface
-        decoration_priority: 0
