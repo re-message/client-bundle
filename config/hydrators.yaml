@@ -7,3 +7,6 @@ services:
     RM\Component\Client\Hydrator\HydratorInterface:
         alias: RM\Component\Client\Hydrator\EntityHydrator
     RM\Component\Client\Hydrator\EntityHydrator: null
+
+    RM\Component\Client\Hydrator\EventfulHydrator:
+        decorates: RM\Component\Client\Hydrator\HydratorInterface
