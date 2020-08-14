@@ -13,21 +13,11 @@
  * file that was distributed with this source code.
  */
 
-use RM\Component\Client\EventListener\LazyLoadListener;
-use RM\Component\Client\EventListener\ThrowableSendListener;
+use RM\Bundle\ClientBundle\Entity\EntityRegistry;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $container) {
     $container->services()
-        ->defaults()
-            ->autowire(true)
-            ->autoconfigure(true)
-        ->set(ThrowableSendListener::class)
-            ->tag('kernel.event_listener')
-        ->set(LazyLoadListener::class)
-            ->tag('kernel.event_listener')
-        ->load('RM\\Bundle\\ClientBundle\\EventListener\\', '../src/EventListener')
-            ->tag('kernel.event_listener')
+        ->set(EntityRegistry::class)
     ;
 };
-

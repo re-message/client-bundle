@@ -16,6 +16,7 @@
 namespace RM\Bundle\ClientBundle\DependencyInjection;
 
 use Exception;
+use RM\Bundle\ClientBundle\Entity\EntityRegistry;
 use RM\Bundle\ClientBundle\EventListener\ServiceAuthenticatorListener;
 use RM\Bundle\ClientBundle\RelmsgClientBundle;
 use RM\Bundle\ClientBundle\Repository\UserRepository;
@@ -48,6 +49,7 @@ class RelmsgClientExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $phpLoader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+        $phpLoader->load('entities.php');
         $phpLoader->load('listeners.php');
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
@@ -118,12 +120,10 @@ class RelmsgClientExtension extends Extension
 
     private function registerEntities(array $config, ContainerBuilder $container): void
     {
-        $entities = array_combine(
-            array_map(fn(array $entity) => $entity['class'], $config),
-            array_map(fn(array $entity) => $entity['doctrine'], $config)
-        );
-
-        $container->setParameter(RelmsgClientBundle::ENTITIES_PARAMETER, $entities);
+        $container
+            ->getDefinition(EntityRegistry::class)
+            ->setArgument(0, $config)
+        ;
 
         $userClass = $config['user']['class'];
         $container

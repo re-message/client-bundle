@@ -16,6 +16,7 @@
 namespace RM\Bundle\ClientBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
+use RM\Bundle\ClientBundle\Entity\EntityRegistry;
 use RM\Component\Client\Event\HydratedEvent;
 
 /**
@@ -26,29 +27,25 @@ use RM\Component\Client\Event\HydratedEvent;
 class HydrationListener
 {
     private EntityManagerInterface $entityManager;
-    private array $entities;
+    private EntityRegistry $entityRegistry;
 
-    public function __construct(EntityManagerInterface $entityManager, array $entities = [])
+    public function __construct(EntityManagerInterface $entityManager, EntityRegistry $entityRegistry)
     {
         $this->entityManager = $entityManager;
-        $this->entities = $entities;
+        $this->entityRegistry = $entityRegistry;
     }
 
     public function __invoke(HydratedEvent $event): void
     {
         $entity = $event->getEntity();
 
-        if ($this->isDoctrineEntity($entity)) {
-            $this->entityManager->persist($entity);
-            $this->entityManager->refresh($entity);
-
-            $event->setEntity($entity);
+        if (!$this->entityRegistry->isDoctrine($entity)) {
+            return;
         }
-    }
 
-    public function isDoctrineEntity(object $entity): bool
-    {
-        $class = get_class($entity);
-        return $this->entities[$class] ?? false === true;
+        $this->entityManager->persist($entity);
+        $this->entityManager->refresh($entity);
+
+        $event->setEntity($entity);
     }
 }
