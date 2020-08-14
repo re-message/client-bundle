@@ -82,13 +82,17 @@ class ClientDataCollector extends DataCollector implements LateDataCollectorInte
 
     public function hasErrors(): bool
     {
-        foreach ($this->getInteractions() as [, $received]) {
-            if ($received['type'] === MessageType::ERROR) {
-                return true;
-            }
-        }
+        return $this->errorsCount() > 0;
+    }
 
-        return false;
+    public function errorsCount(): int
+    {
+        return count(
+            array_filter(
+                $this->getInteractions(),
+                fn($messages) => $messages[1]['type'] === MessageType::ERROR
+            )
+        );
     }
 
     public function getApplication()
