@@ -5,7 +5,7 @@
  *
  * @link      https://github.com/relmsg/client-bundle
  * @link      https://dev.relmsg.ru/packages/client-bundle
- * @copyright Copyright (c) 2018-2020 Relations Messenger
+ * @copyright Copyright (c) 2018-2022 Relations Messenger
  * @author    Oleg Kozlov <h1karo@relmsg.ru>
  * @license   https://legal.relmsg.ru/licenses/client-bundle
  *

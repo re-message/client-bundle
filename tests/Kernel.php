@@ -30,7 +30,7 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 /**
  * Class Kernel
  *
- * @author Oleg Kozlov <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@relmsg.ru>
  */
 class Kernel extends BaseKernel
 {

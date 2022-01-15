@@ -29,7 +29,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * Class AutowiredTest
  *
- * @author Oleg Kozlov <h1karo@outlook.com>
+ * @author Oleg Kozlov <h1karo@relmsg.ru>
  */
 class AutowiredTest extends WebTestCase
 {
