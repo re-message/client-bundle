@@ -1,12 +1,12 @@
 <?php
-/**
+/*
  * This file is a part of Relations Messenger Client Bundle.
  * This package is a part of Relations Messenger.
  *
  * @link      https://github.com/relmsg/client-bundle
  * @link      https://dev.relmsg.ru/packages/client-bundle
- * @copyright Copyright (c) 2018-2020 Relations Messenger
- * @author    Oleg Kozlov <h1karo@outlook.com>
+ * @copyright Copyright (c) 2018-2022 Relations Messenger
+ * @author    Oleg Kozlov <h1karo@relmsg.ru>
  * @license   https://legal.relmsg.ru/licenses/client-bundle
  *
  * For the full copyright and license information, please view the LICENSE
@@ -48,7 +48,7 @@ class Kernel extends BaseKernel
     /**
      * @inheritDoc
      */
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         return [
             new FrameworkBundle(),
