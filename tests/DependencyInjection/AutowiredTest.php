@@ -21,6 +21,7 @@ use RM\Bundle\ClientBundle\Tests\Stub\Autowired;
 use RM\Bundle\ClientBundle\Transport\TraceableTransport;
 use RM\Component\Client\Client;
 use RM\Component\Client\Hydrator\EntityHydrator;
+use RM\Component\Client\Hydrator\EventfulHydrator;
 use RM\Component\Client\Security\Authenticator\Factory\AliasedAuthenticatorFactory;
 use RM\Component\Client\Transport\HttpTransport;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -38,9 +39,14 @@ class AutowiredTest extends WebTestCase
         $autowired = static::getContainer()->get(Autowired::class);
 
         static::assertInstanceOf(Client::class, $autowired->getClient());
-        static::assertInstanceOf(EntityHydrator::class, $autowired->getHydrator());
-        static::assertInstanceOf(TraceableTransport::class, $autowired->getTransport());
-        static::assertInstanceOf(HttpTransport::class, $autowired->getTransport()->getTransport());
+
+        $hydrator = $autowired->getHydrator();
+        static::assertInstanceOf(EventfulHydrator::class, $hydrator);
+        static::assertInstanceOf(EntityHydrator::class, $hydrator->getHydrator());
+
+        $transport = $autowired->getTransport();
+        static::assertInstanceOf(TraceableTransport::class, $transport);
+        static::assertInstanceOf(HttpTransport::class, $transport->getTransport());
         static::assertInstanceOf(SessionAuthorizationStorage::class, $autowired->getAuthorizationStorage());
         static::assertInstanceOf(AliasedAuthenticatorFactory::class, $autowired->getAuthenticatorFactory());
         static::assertInstanceOf(ServiceRepositoryFactory::class, $autowired->getRepositoryFactory());
