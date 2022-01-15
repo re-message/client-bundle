@@ -15,6 +15,8 @@
 
 namespace RM\Bundle\ClientBundle;
 
+use RM\Bundle\ClientBundle\DependencyInjection\Compiler\ServiceRepositoryFactoryPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -36,4 +38,20 @@ class RelmsgClientBundle extends Bundle
     public const AUTO_AUTH_PARAMETER = self::NAME . '.auth.auto_auth';
 
     public const COLLECTOR = self::NAME;
+
+    /**
+     * @inheritDoc
+     */
+    public function getPath(): string
+    {
+        return dirname(parent::getPath());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function build(ContainerBuilder $container): void
+    {
+        $container->addCompilerPass(new ServiceRepositoryFactoryPass());
+    }
 }

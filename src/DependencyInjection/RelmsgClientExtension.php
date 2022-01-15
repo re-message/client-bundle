@@ -5,7 +5,7 @@
  *
  * @link      https://github.com/relmsg/client-bundle
  * @link      https://dev.relmsg.ru/packages/client-bundle
- * @copyright Copyright (c) 2018-2020 Relations Messenger
+ * @copyright Copyright (c) 2018-2022 Relations Messenger
  * @author    Oleg Kozlov <h1karo@relmsg.ru>
  * @license   https://legal.relmsg.ru/licenses/client-bundle
  *
@@ -16,13 +16,17 @@
 namespace RM\Bundle\ClientBundle\DependencyInjection;
 
 use Exception;
+use RM\Bundle\ClientBundle\Entity\EntityRegistry;
+use RM\Bundle\ClientBundle\EventListener\HydrationListener;
 use RM\Bundle\ClientBundle\EventListener\ServiceAuthenticatorListener;
 use RM\Bundle\ClientBundle\RelmsgClientBundle;
+use RM\Bundle\ClientBundle\Repository\UserRepository;
 use RM\Bundle\ClientBundle\Transport\TransportType;
 use RM\Component\Client\Transport\HttpTransport;
 use RM\Component\Client\Transport\TransportInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use UnexpectedValueException;
@@ -45,7 +49,11 @@ class RelmsgClientExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $phpLoader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+        $phpLoader->load('entities.php');
+        $phpLoader->load('listeners.php');
+
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('client.yaml');
         $loader->load('transports.yaml');
         $loader->load('hydrators.yaml');
@@ -58,26 +66,39 @@ class RelmsgClientExtension extends Extension
             $loader->load('debug.yaml');
         }
 
-        $isAuthEnabled = $config['auth']['enabled'];
-        if ($isAuthEnabled) {
+        $this->registerServiceAuthenticatorListener($config['auth'], $container);
+        $this->registerTransport($config['transport'], $container);
+        $this->registerEntities($config['entities'], $container);
+    }
+
+    private function registerServiceAuthenticatorListener(array $config, ContainerBuilder $container): void
+    {
+        $isAuthEnabled = $config['enabled'];
+        if (!$isAuthEnabled) {
             $container
-                ->register(ServiceAuthenticatorListener::class)
-                ->setAutowired(true)
-                ->setAutoconfigured(true)
-                ->addTag('kernel.event_listener')
+                ->getDefinition(ServiceAuthenticatorListener::class)
+                ->addMethodCall('disable')
             ;
 
-            $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['auth']['app_id']);
-            $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['auth']['app_secret']);
-            $container->setParameter(RelmsgClientBundle::AUTO_AUTH_PARAMETER, $config['auth']['auto']);
-            $container->setParameter(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['auth']['exception_on_fail']);
+            return;
         }
 
-        if ($config['transport']['service'] === null) {
-            $type = new TransportType($config['transport']['type']);
+        $container->setParameter(RelmsgClientBundle::APP_ID_PARAMETER, $config['app_id']);
+        $container->setParameter(RelmsgClientBundle::APP_SECRET_PARAMETER, $config['app_secret']);
+        $container->setParameter(RelmsgClientBundle::AUTO_AUTH_PARAMETER, $config['auto']);
+        $container->setParameter(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['exception_on_fail']);
+    }
+
+    private function registerTransport(array $config, ContainerBuilder $container): void
+    {
+        if ($config['service'] === null) {
+            $type = new TransportType($config['type']);
             $class = $this->getTransportClass($type);
-            $this->registerOrAlias($container, TransportInterface::class, $class);
+        } else {
+            $class = $config['service'];
         }
+
+        $this->registerOrAlias($container, TransportInterface::class, $class);
     }
 
     protected function getTransportClass(TransportType $type): string
@@ -96,5 +117,40 @@ class RelmsgClientExtension extends Extension
         } else {
             $container->register($alias, $class);
         }
+    }
+
+    private function registerEntities(array $config, ContainerBuilder $container): void
+    {
+        $bundles = $container->getParameter('kernel.bundles');
+        $hasDoctrineBundle = array_key_exists('DoctrineBundle', $bundles);
+        $hasDoctrineEntities = $this->containsDoctrineEntities($config);
+
+        if ($hasDoctrineEntities && !$hasDoctrineBundle) {
+            throw new UnexpectedValueException('Doctrine entities usage requires Doctrine Bundle.');
+        }
+
+        if ($hasDoctrineBundle) {
+            $container->register(HydrationListener::class);
+        }
+
+        $container
+            ->getDefinition(EntityRegistry::class)
+            ->setArgument(0, $config)
+        ;
+
+        $userClass = $config['user']['class'];
+        $container
+            ->getDefinition(UserRepository::class)
+            ->setArgument('$class', $userClass)
+        ;
+    }
+
+    private function containsDoctrineEntities(array $config): bool
+    {
+        return array_reduce(
+            $config,
+            fn (bool $carry, array $entity) => $carry || $entity['doctrine'],
+            false
+        );
     }
 }

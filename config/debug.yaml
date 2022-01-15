@@ -12,3 +12,4 @@ services:
 
     RM\Bundle\ClientBundle\Transport\TraceableTransport:
         decorates: RM\Component\Client\Transport\TransportInterface
+        decoration_priority: -999

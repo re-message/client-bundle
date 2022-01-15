@@ -5,7 +5,7 @@ This package provides [`relmsg/client`](https://github.com/relmsg/client) packag
 Client uses the specific version when sends messages to Core. You cannot change the version of the API used, because this may violate the logic of this package.
 
 ![Package version](https://img.shields.io/packagist/v/relmsg/client-bundle?style=for-the-badge)
-![Client version](https://img.shields.io/static/v1?label=Client&message=0.5.0&color=blue&style=for-the-badge)
+![Client version](https://img.shields.io/static/v1?label=Client&message=0.7.1&color=blue&style=for-the-badge)
 ![Core version](https://img.shields.io/static/v1?label=Core&message=1.0&color=blue&style=for-the-badge)
 ![PHP Version](https://img.shields.io/static/v1?label=PHP&message=^7.4&color=blue&style=for-the-badge)
 
