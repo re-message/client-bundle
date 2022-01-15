@@ -1,12 +1,12 @@
 <?php
-/**
+/*
  * This file is a part of Relations Messenger Client Bundle.
  * This package is a part of Relations Messenger.
  *
  * @link      https://github.com/relmsg/client-bundle
  * @link      https://dev.relmsg.ru/packages/client-bundle
- * @copyright Copyright (c) 2018-2020 Relations Messenger
- * @author    Oleg Kozlov <h1karo@outlook.com>
+ * @copyright Copyright (c) 2018-2022 Relations Messenger
+ * @author    Oleg Kozlov <h1karo@relmsg.ru>
  * @license   https://legal.relmsg.ru/licenses/client-bundle
  *
  * For the full copyright and license information, please view the LICENSE
@@ -34,15 +34,15 @@ class AutowiredTest extends WebTestCase
 {
     public function testAutowiring(): void
     {
-        self::bootKernel();
-        $autowired = self::$container->get(Autowired::class);
+        static::bootKernel();
+        $autowired = static::getContainer()->get(Autowired::class);
 
-        $this->assertInstanceOf(Client::class, $autowired->getClient());
-        $this->assertInstanceOf(EntityHydrator::class, $autowired->getHydrator());
-        $this->assertInstanceOf(TraceableTransport::class, $autowired->getTransport());
-        $this->assertInstanceOf(HttpTransport::class, $autowired->getTransport()->getTransport());
-        $this->assertInstanceOf(SessionAuthorizationStorage::class, $autowired->getAuthorizationStorage());
-        $this->assertInstanceOf(AliasedAuthenticatorFactory::class, $autowired->getAuthenticatorFactory());
-        $this->assertInstanceOf(ServiceRepositoryFactory::class, $autowired->getRepositoryFactory());
+        static::assertInstanceOf(Client::class, $autowired->getClient());
+        static::assertInstanceOf(EntityHydrator::class, $autowired->getHydrator());
+        static::assertInstanceOf(TraceableTransport::class, $autowired->getTransport());
+        static::assertInstanceOf(HttpTransport::class, $autowired->getTransport()->getTransport());
+        static::assertInstanceOf(SessionAuthorizationStorage::class, $autowired->getAuthorizationStorage());
+        static::assertInstanceOf(AliasedAuthenticatorFactory::class, $autowired->getAuthenticatorFactory());
+        static::assertInstanceOf(ServiceRepositoryFactory::class, $autowired->getRepositoryFactory());
     }
 }
