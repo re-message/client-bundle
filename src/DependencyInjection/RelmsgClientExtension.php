@@ -5,7 +5,7 @@
  *
  * @link      https://github.com/relmsg/client-bundle
  * @link      https://dev.relmsg.ru/packages/client-bundle
- * @copyright Copyright (c) 2018-2020 Relations Messenger
+ * @copyright Copyright (c) 2018-2022 Relations Messenger
  * @author    Oleg Kozlov <h1karo@relmsg.ru>
  * @license   https://legal.relmsg.ru/licenses/client-bundle
  *
@@ -17,6 +17,7 @@ namespace RM\Bundle\ClientBundle\DependencyInjection;
 
 use Exception;
 use RM\Bundle\ClientBundle\Entity\EntityRegistry;
+use RM\Bundle\ClientBundle\EventListener\HydrationListener;
 use RM\Bundle\ClientBundle\EventListener\ServiceAuthenticatorListener;
 use RM\Bundle\ClientBundle\RelmsgClientBundle;
 use RM\Bundle\ClientBundle\Repository\UserRepository;
@@ -120,6 +121,18 @@ class RelmsgClientExtension extends Extension
 
     private function registerEntities(array $config, ContainerBuilder $container): void
     {
+        $bundles = $container->getParameter('kernel.bundles');
+        $hasDoctrineBundle = array_key_exists('DoctrineBundle', $bundles);
+        $hasDoctrineEntities = $this->containsDoctrineEntities($config);
+
+        if ($hasDoctrineEntities && !$hasDoctrineBundle) {
+            throw new UnexpectedValueException('Doctrine entities usage requires Doctrine Bundle.');
+        }
+
+        if ($hasDoctrineBundle) {
+            $container->register(HydrationListener::class);
+        }
+
         $container
             ->getDefinition(EntityRegistry::class)
             ->setArgument(0, $config)
@@ -130,5 +143,14 @@ class RelmsgClientExtension extends Extension
             ->getDefinition(UserRepository::class)
             ->setArgument('$class', $userClass)
         ;
+    }
+
+    private function containsDoctrineEntities(array $config): bool
+    {
+        return array_reduce(
+            $config,
+            fn (bool $carry, array $entity) => $carry || $entity['doctrine'],
+            false
+        );
     }
 }
