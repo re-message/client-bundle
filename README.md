@@ -7,11 +7,11 @@ Client uses the specific version when sends messages to Core. You cannot change 
 ![Package version](https://img.shields.io/packagist/v/remessage/client-bundle?style=for-the-badge)
 ![Client version](https://img.shields.io/static/v1?label=Client&message=^0.8.1&color=blue&style=for-the-badge)
 ![Core version](https://img.shields.io/static/v1?label=Core&message=1.0&color=blue&style=for-the-badge)
-![PHP Version](https://img.shields.io/static/v1?label=PHP&message=^7.4&color=blue&style=for-the-badge)
+![PHP Version](https://img.shields.io/static/v1?label=PHP&message=^8.1&color=blue&style=for-the-badge)
 
 ## Requirements
 
-1. PHP 7.4+
+1. PHP 8.1+
 2. Requirements of [`remessage/client`](https://github.com/re-message/client)
 
 ## Installation
