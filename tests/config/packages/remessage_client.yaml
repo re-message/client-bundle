@@ -1,2 +1,2 @@
-relmsg_client:
+remessage_client:
     transport: http
