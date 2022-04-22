@@ -33,16 +33,11 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use UnexpectedValueException;
 
 /**
- * Class RelmsgClientExtension
- *
  * @author Oleg Kozlov <h1karo@remessage.ru>
  */
-class RelmsgClientExtension extends Extension
+class ReMessageClientExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
-     *
      * @throws Exception
      */
     public function load(array $configs, ContainerBuilder $container): void
