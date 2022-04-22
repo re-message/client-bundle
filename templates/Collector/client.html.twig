@@ -3,14 +3,14 @@
 {% block head %}
     {{ parent() }}
     <style>
-        {{ include('@RelmsgClient/Collector/client.css.twig') }}
+        {{ include('@RemessageClient/Collector/client.css.twig') }}
     </style>
 {% endblock %}
 
 {% block toolbar %}
     {% if collector.hasErrors %}
         {% set icon %}
-            {{ include('@RelmsgClient/Icon/relmsg.svg') }}
+            {{ include('@RemessageClient/Icon/Remessage.svg') }}
             <span class="sf-toolbar-value">{{ collector.errorsCount }}</span>
         {% endset %}
 
@@ -20,8 +20,8 @@
 
 {% block menu %}
     <span class="label {{ collector.hasErrors ? 'label-status-warning' }} {{ not collector.enabled ? 'disabled' }}">
-        <span class="icon">{{ include('@RelmsgClient/Icon/relmsg.svg') }}</span>
-        <strong>Relmsg Client</strong>
+        <span class="icon">{{ include('@RemessageClient/Icon/Remessage.svg') }}</span>
+        <strong>Re Message Client</strong>
         {% if collector.interactions|length %}
             <span class="count">
                 {{ collector.interactions|length }}
@@ -33,12 +33,12 @@
 {% block panel %}
     <h2>Relations Messenger Client</h2>
 
-    {% include '@RelmsgClient/Collector/metrics/index.html.twig' with {
+    {% include '@RemessageClient/Collector/metrics/index.html.twig' with {
         application: collector.application,
         user: collector.user
     } only %}
 
-    {% include '@RelmsgClient/Collector/interactions/index.html.twig' with {
+    {% include '@RemessageClient/Collector/interactions/index.html.twig' with {
         interactions: collector.interactions
     } only %}
 {% endblock %}

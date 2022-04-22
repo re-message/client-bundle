@@ -1,9 +1,9 @@
 <h3>Interactions <small>({{ interactions|length }})</small></h3>
 
 {% if interactions|length %}
-    {% include '@RelmsgClient/Collector/interactions/table.html.twig' with { interactions: interactions } only %}
+    {% include '@RemessageClient/Collector/interactions/table.html.twig' with { interactions: interactions } only %}
 {% else %}
     <div class="empty">
-        <p>No interactions with Relations Messenger Core were made.</p>
+        <p>No interactions with Re Message Core were made.</p>
     </div>
 {% endif %}
