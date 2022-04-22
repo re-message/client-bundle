@@ -16,7 +16,7 @@ Client uses the specific version when sends messages to Core. You cannot change 
 
 ## Installation
 
-1. You will need Composer to install: `composer require /client-bundle`
+1. You will need Composer to install: `composer require remessage/client-bundle`
 2. Register the bundles in `config/bundles.php`:
     * RemessageClientBundle
     * MessageBundle
