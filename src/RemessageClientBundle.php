@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * @author Oleg Kozlov <h1karo@remessage.ru>
  */
-class ReMessageClientBundle extends Bundle
+class RemessageClientBundle extends Bundle
 {
     public const NAME = 'remessage_client';
 

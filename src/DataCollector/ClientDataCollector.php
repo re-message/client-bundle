@@ -16,7 +16,7 @@
 
 namespace RM\Bundle\ClientBundle\DataCollector;
 
-use RM\Bundle\ClientBundle\ReMessageClientBundle;
+use RM\Bundle\ClientBundle\RemessageClientBundle;
 use RM\Bundle\ClientBundle\Transport\TraceableTransport;
 use RM\Component\Client\ClientInterface;
 use RM\Component\Client\Entity\Application;
@@ -108,7 +108,7 @@ class ClientDataCollector extends DataCollector implements LateDataCollectorInte
 
     public function getName(): string
     {
-        return ReMessageClientBundle::NAME;
+        return RemessageClientBundle::NAME;
     }
 
     public function reset(): void

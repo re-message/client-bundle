@@ -16,7 +16,7 @@
 
 namespace RM\Bundle\ClientBundle\DependencyInjection\Compiler;
 
-use RM\Bundle\ClientBundle\ReMessageClientBundle;
+use RM\Bundle\ClientBundle\RemessageClientBundle;
 use RM\Bundle\ClientBundle\Repository\ServiceRepositoryFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -31,7 +31,7 @@ class ServiceRepositoryFactoryPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $factoryDefinition = $container->getDefinition(ServiceRepositoryFactory::class);
-        foreach ($container->findTaggedServiceIds(ReMessageClientBundle::TAG_REPOSITORY) as $id => $tags) {
+        foreach ($container->findTaggedServiceIds(RemessageClientBundle::TAG_REPOSITORY) as $id => $tags) {
             $reference = new Reference($id);
 
             foreach ($tags as $tag) {

@@ -20,7 +20,7 @@ use Exception;
 use RM\Bundle\ClientBundle\Entity\EntityRegistry;
 use RM\Bundle\ClientBundle\EventListener\HydrationListener;
 use RM\Bundle\ClientBundle\EventListener\ServiceAuthenticatorListener;
-use RM\Bundle\ClientBundle\ReMessageClientBundle;
+use RM\Bundle\ClientBundle\RemessageClientBundle;
 use RM\Bundle\ClientBundle\Repository\UserRepository;
 use RM\Bundle\ClientBundle\Transport\TransportType;
 use RM\Component\Client\Transport\HttpTransport;
@@ -35,7 +35,7 @@ use UnexpectedValueException;
 /**
  * @author Oleg Kozlov <h1karo@remessage.ru>
  */
-class ReMessageClientExtension extends Extension
+class RemessageClientExtension extends Extension
 {
     /**
      * @throws Exception
@@ -79,10 +79,10 @@ class ReMessageClientExtension extends Extension
             return;
         }
 
-        $container->setParameter(ReMessageClientBundle::APP_ID_PARAMETER, $config['app_id']);
-        $container->setParameter(ReMessageClientBundle::APP_SECRET_PARAMETER, $config['app_secret']);
-        $container->setParameter(ReMessageClientBundle::AUTO_AUTH_PARAMETER, $config['auto']);
-        $container->setParameter(ReMessageClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['exception_on_fail']);
+        $container->setParameter(RemessageClientBundle::APP_ID_PARAMETER, $config['app_id']);
+        $container->setParameter(RemessageClientBundle::APP_SECRET_PARAMETER, $config['app_secret']);
+        $container->setParameter(RemessageClientBundle::AUTO_AUTH_PARAMETER, $config['auto']);
+        $container->setParameter(RemessageClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER, $config['exception_on_fail']);
     }
 
     private function registerTransport(array $config, ContainerBuilder $container): void
