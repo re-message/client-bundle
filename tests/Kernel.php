@@ -1,13 +1,14 @@
 <?php
 /*
- * This file is a part of Relations Messenger Client Bundle.
- * This package is a part of Relations Messenger.
+ * This file is a part of Re Message Client Bundle.
+ * This package is a part of Re Message.
  *
- * @link      https://github.com/relmsg/client-bundle
- * @link      https://dev.relmsg.ru/packages/client-bundle
- * @copyright Copyright (c) 2018-2022 Relations Messenger
- * @author    Oleg Kozlov <h1karo@relmsg.ru>
- * @license   https://legal.relmsg.ru/licenses/client-bundle
+ * @link      https://github.com/re-message/client-bundle
+ * @link      https://dev.remessage.ru/packages/client-bundle
+ * @copyright Copyright (c) 2018-2022 Re Message
+ * @author    Oleg Kozlov <h1karo@remessage.ru>
+ * @license   Apache License 2.0
+ * @license   https://legal.remessage.ru/licenses/client-bundle
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,7 +18,7 @@ namespace RM\Bundle\ClientBundle\Tests;
 
 use Exception;
 use Psr\Log\NullLogger;
-use RM\Bundle\ClientBundle\RelmsgClientBundle;
+use RM\Bundle\ClientBundle\ReMessageClientBundle;
 use RM\Bundle\MessageBundle\MessageBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
@@ -30,7 +31,7 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 /**
  * Class Kernel
  *
- * @author Oleg Kozlov <h1karo@relmsg.ru>
+ * @author Oleg Kozlov <h1karo@remessage.ru>
  */
 class Kernel extends BaseKernel
 {
@@ -54,7 +55,7 @@ class Kernel extends BaseKernel
             new FrameworkBundle(),
             new MonologBundle(),
             new MessageBundle(),
-            new RelmsgClientBundle(),
+            new ReMessageClientBundle(),
             new TwigBundle(),
             new WebProfilerBundle()
         ];

@@ -1,13 +1,14 @@
 <?php
 /*
- * This file is a part of Relations Messenger Client Bundle.
- * This package is a part of Relations Messenger.
+ * This file is a part of Re Message Client Bundle.
+ * This package is a part of Re Message.
  *
- * @link      https://github.com/relmsg/client-bundle
- * @link      https://dev.relmsg.ru/packages/client-bundle
- * @copyright Copyright (c) 2018-2022 Relations Messenger
- * @author    Oleg Kozlov <h1karo@relmsg.ru>
- * @license   https://legal.relmsg.ru/licenses/client-bundle
+ * @link      https://github.com/re-message/client-bundle
+ * @link      https://dev.remessage.ru/packages/client-bundle
+ * @copyright Copyright (c) 2018-2022 Re Message
+ * @author    Oleg Kozlov <h1karo@remessage.ru>
+ * @license   Apache License 2.0
+ * @license   https://legal.remessage.ru/licenses/client-bundle
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,7 +16,7 @@
 
 namespace RM\Bundle\ClientBundle\DependencyInjection\Compiler;
 
-use RM\Bundle\ClientBundle\RelmsgClientBundle;
+use RM\Bundle\ClientBundle\ReMessageClientBundle;
 use RM\Bundle\ClientBundle\Repository\ServiceRepositoryFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -30,7 +31,7 @@ class ServiceRepositoryFactoryPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $factoryDefinition = $container->getDefinition(ServiceRepositoryFactory::class);
-        foreach ($container->findTaggedServiceIds(RelmsgClientBundle::TAG_REPOSITORY) as $id => $tags) {
+        foreach ($container->findTaggedServiceIds(ReMessageClientBundle::TAG_REPOSITORY) as $id => $tags) {
             $reference = new Reference($id);
 
             foreach ($tags as $tag) {

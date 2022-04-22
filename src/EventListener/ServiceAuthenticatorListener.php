@@ -1,13 +1,14 @@
 <?php
 /*
- * This file is a part of Relations Messenger Client Bundle.
- * This package is a part of Relations Messenger.
+ * This file is a part of Re Message Client Bundle.
+ * This package is a part of Re Message.
  *
- * @link      https://github.com/relmsg/client-bundle
- * @link      https://dev.relmsg.ru/packages/client-bundle
- * @copyright Copyright (c) 2018-2022 Relations Messenger
- * @author    Oleg Kozlov <h1karo@relmsg.ru>
- * @license   https://legal.relmsg.ru/licenses/client-bundle
+ * @link      https://github.com/re-message/client-bundle
+ * @link      https://dev.remessage.ru/packages/client-bundle
+ * @copyright Copyright (c) 2018-2022 Re Message
+ * @author    Oleg Kozlov <h1karo@remessage.ru>
+ * @license   Apache License 2.0
+ * @license   https://legal.remessage.ru/licenses/client-bundle
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +17,7 @@
 namespace RM\Bundle\ClientBundle\EventListener;
 
 use RM\Bundle\ClientBundle\Exception\AuthorizationFailedException;
-use RM\Bundle\ClientBundle\RelmsgClientBundle;
+use RM\Bundle\ClientBundle\ReMessageClientBundle;
 use RM\Component\Client\Exception\ErrorException;
 use RM\Component\Client\Security\Authenticator\ServiceAuthenticator;
 use RM\Component\Client\Security\Storage\AuthorizationStorageInterface;
@@ -26,7 +27,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 /**
  * Class ServiceAuthenticatorListener
  *
- * @author Oleg Kozlov <h1karo@relmsg.ru>
+ * @author Oleg Kozlov <h1karo@remessage.ru>
  */
 class ServiceAuthenticatorListener extends DisableListener
 {
@@ -59,11 +60,11 @@ class ServiceAuthenticatorListener extends DisableListener
             return;
         }
 
-        $appId = $this->parameterBag->get(RelmsgClientBundle::APP_ID_PARAMETER);
-        $appSecret = $this->parameterBag->get(RelmsgClientBundle::APP_SECRET_PARAMETER);
+        $appId = $this->parameterBag->get(ReMessageClientBundle::APP_ID_PARAMETER);
+        $appSecret = $this->parameterBag->get(ReMessageClientBundle::APP_SECRET_PARAMETER);
         $this->authenticator->setId($appId)->setSecret($appSecret);
 
-        $isAutoAuth = $this->parameterBag->get(RelmsgClientBundle::AUTO_AUTH_PARAMETER);
+        $isAutoAuth = $this->parameterBag->get(ReMessageClientBundle::AUTO_AUTH_PARAMETER);
         if (!$isAutoAuth) {
             return;
         }
@@ -71,7 +72,7 @@ class ServiceAuthenticatorListener extends DisableListener
         try {
             $this->authenticator->authenticate();
         } catch (ErrorException $e) {
-            $isExceptionAllowed = $this->parameterBag->get(RelmsgClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER);
+            $isExceptionAllowed = $this->parameterBag->get(ReMessageClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER);
             if (!$isExceptionAllowed) {
                 return;
             }

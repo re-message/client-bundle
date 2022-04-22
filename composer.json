@@ -1,14 +1,13 @@
 {
-    "name": "relmsg/client-bundle",
-    "description": "A Relations Messenger Client Bundle for Symfony",
+    "name": "remessage/client-bundle",
+    "description": "A Re Message Client Bundle for Symfony",
     "type": "symfony-bundle",
     "license": "Apache-2.0",
-    "homepage": "https://dev.relmsg.ru/packages/client-bundle",
+    "homepage": "https://dev.remessage.ru/packages/client-bundle",
     "authors": [
         {
             "name": "Oleg Kozlov",
-            "email": "h1karo@relmsg.ru",
-            "homepage": "https://rel.ms/h1karo",
+            "email": "h1karo@remessage.ru",
             "role": "Developer"
         }
     ],
@@ -25,8 +24,8 @@
     "require": {
         "php": ">=8.1",
 
-        "relmsg/client": "^0.8.0",
-        "relmsg/message-bundle": "^2.0.0",
+        "remessage/client": "^0.8.1",
+        "remessage/message-bundle": "^2.2.2",
 
         "symfony/http-client": "^6.0",
         "symfony/event-dispatcher": "^6.0",
@@ -53,7 +52,7 @@
         "roave/security-advisories": "dev-latest"
     },
     "suggest": {
-        "doctrine/orm": "To use Relations Messenger Entities as Doctrine Entities."
+        "doctrine/orm": "To use Re Message Entities as Doctrine Entities."
     },
     "config": {
         "sort-packages": false,
