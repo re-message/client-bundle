@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SessionAuthorizationStorage implements AuthorizationStorageInterface
 {
-    private const SESSION_NAMESPACE = '_relmsg';
+    private const SESSION_NAMESPACE = '_remessage';
 
     private RequestStack $requestStack;
     private string $namespace;
