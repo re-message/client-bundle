@@ -21,8 +21,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class RelmsgClientBundle
- *
  * @author Oleg Kozlov <h1karo@remessage.ru>
  */
 class ReMessageClientBundle extends Bundle
