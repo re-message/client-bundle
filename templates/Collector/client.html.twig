@@ -10,7 +10,7 @@
 {% block toolbar %}
     {% if collector.hasErrors %}
         {% set icon %}
-            {{ include('@RemessageClient/Icon/Remessage.svg') }}
+            {{ include('@RemessageClient/Icon/remessage.svg') }}
             <span class="sf-toolbar-value">{{ collector.errorsCount }}</span>
         {% endset %}
 
@@ -20,7 +20,7 @@
 
 {% block menu %}
     <span class="label {{ collector.hasErrors ? 'label-status-warning' }} {{ not collector.enabled ? 'disabled' }}">
-        <span class="icon">{{ include('@RemessageClient/Icon/Remessage.svg') }}</span>
+        <span class="icon">{{ include('@RemessageClient/Icon/remessage.svg') }}</span>
         <strong>Re Message Client</strong>
         {% if collector.interactions|length %}
             <span class="count">
