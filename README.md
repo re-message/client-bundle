@@ -18,8 +18,8 @@ Client uses the specific version when sends messages to Core. You cannot change 
 
 1. You will need Composer to install: `composer require remessage/client-bundle`
 2. Register the bundles in `config/bundles.php`:
-    * RemessageClientBundle
-    * MessageBundle
+    * RmClientBundle
+    * RmMessageBundle
 3. Configure the application authorization (see [Authorization](#authorization))
 
 ## Authorization

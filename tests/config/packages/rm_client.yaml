@@ -1,2 +1,2 @@
-remessage_client:
+rm_client:
     transport: http

@@ -18,7 +18,7 @@ namespace RM\Bundle\ClientBundle\Tests;
 
 use Exception;
 use Psr\Log\NullLogger;
-use RM\Bundle\ClientBundle\RemessageClientBundle;
+use RM\Bundle\ClientBundle\RmClientBundle;
 use RM\Bundle\MessageBundle\RmMessageBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
@@ -55,7 +55,7 @@ class Kernel extends BaseKernel
             new FrameworkBundle(),
             new MonologBundle(),
             new RmMessageBundle(),
-            new RemessageClientBundle(),
+            new RmClientBundle(),
             new TwigBundle(),
             new WebProfilerBundle()
         ];

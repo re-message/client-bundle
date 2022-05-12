@@ -7,8 +7,8 @@ services:
     RM\Bundle\ClientBundle\DataCollector\ClientDataCollector:
         tags:
             -   name: data_collector
-                template: '@RemessageClient/Collector/client.html.twig'
-                id: !php/const RM\Bundle\ClientBundle\RemessageClientBundle::COLLECTOR
+                template: '@RmClient/Collector/client.html.twig'
+                id: !php/const RM\Bundle\ClientBundle\RmClientBundle::COLLECTOR
 
     RM\Bundle\ClientBundle\Transport\TraceableTransport:
         decorates: RM\Component\Client\Transport\TransportInterface

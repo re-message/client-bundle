@@ -17,10 +17,10 @@ services:
         RM\Component\Client\Repository\RepositoryInterface:
             public: true
             tags:
-                - name: !php/const RM\Bundle\ClientBundle\RemessageClientBundle::TAG_REPOSITORY
+                - name: !php/const RM\Bundle\ClientBundle\RmClientBundle::TAG_REPOSITORY
 
     RM\Bundle\ClientBundle\Repository\UserRepository:
         tags:
-            - name: !php/const RM\Bundle\ClientBundle\RemessageClientBundle::TAG_REPOSITORY
+            - name: !php/const RM\Bundle\ClientBundle\RmClientBundle::TAG_REPOSITORY
               alias: RM\Component\Client\Repository\UserRepository
     RM\Component\Client\Repository\ApplicationRepository: null

@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     {% for interaction in interactions %}
-        {% include '@RemessageClient/Collector/interactions/row.html.twig' with {
+        {% include '@RmClient/Collector/interactions/row.html.twig' with {
             sent: interaction[0],
             received: interaction[1],
             index: loop.index

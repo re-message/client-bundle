@@ -9,14 +9,14 @@ services:
     RM\Bundle\ClientBundle\Security\Authenticator\Factory\ServiceAuthenticatorFactory:
         arguments:
             $container: !tagged_locator
-                tag: !php/const RM\Bundle\ClientBundle\RemessageClientBundle::TAG_AUTHENTICATOR
+                tag: !php/const RM\Bundle\ClientBundle\RmClientBundle::TAG_AUTHENTICATOR
     RM\Component\Client\Security\Authenticator\Factory\AliasedAuthenticatorFactory:
         decorates: RM\Bundle\ClientBundle\Security\Authenticator\Factory\ServiceAuthenticatorFactory
 
     _instanceof:
         RM\Component\Client\Security\Authenticator\AuthenticatorInterface:
             tags:
-                - { name: !php/const RM\Bundle\ClientBundle\RemessageClientBundle::TAG_AUTHENTICATOR }
+                - { name: !php/const RM\Bundle\ClientBundle\RmClientBundle::TAG_AUTHENTICATOR }
         RM\Component\Client\Security\Authenticator\RedirectAuthenticatorInterface:
             calls:
                 -   setFactory: ['@RM\Component\Client\Security\Authenticator\Factory\AuthenticatorFactoryInterface']

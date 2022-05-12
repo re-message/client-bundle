@@ -17,7 +17,7 @@
 namespace RM\Bundle\ClientBundle\EventListener;
 
 use RM\Bundle\ClientBundle\Exception\AuthorizationFailedException;
-use RM\Bundle\ClientBundle\RemessageClientBundle;
+use RM\Bundle\ClientBundle\RmClientBundle;
 use RM\Component\Client\Exception\ErrorException;
 use RM\Component\Client\Security\Authenticator\ServiceAuthenticator;
 use RM\Component\Client\Security\Storage\AuthorizationStorageInterface;
@@ -60,11 +60,11 @@ class ServiceAuthenticatorListener extends DisableListener
             return;
         }
 
-        $appId = $this->parameterBag->get(RemessageClientBundle::APP_ID_PARAMETER);
-        $appSecret = $this->parameterBag->get(RemessageClientBundle::APP_SECRET_PARAMETER);
+        $appId = $this->parameterBag->get(RmClientBundle::APP_ID_PARAMETER);
+        $appSecret = $this->parameterBag->get(RmClientBundle::APP_SECRET_PARAMETER);
         $this->authenticator->setId($appId)->setSecret($appSecret);
 
-        $isAutoAuth = $this->parameterBag->get(RemessageClientBundle::AUTO_AUTH_PARAMETER);
+        $isAutoAuth = $this->parameterBag->get(RmClientBundle::AUTO_AUTH_PARAMETER);
         if (!$isAutoAuth) {
             return;
         }
@@ -72,7 +72,7 @@ class ServiceAuthenticatorListener extends DisableListener
         try {
             $this->authenticator->authenticate();
         } catch (ErrorException $e) {
-            $isExceptionAllowed = $this->parameterBag->get(RemessageClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER);
+            $isExceptionAllowed = $this->parameterBag->get(RmClientBundle::ALLOW_AUTH_EXCEPTION_PARAMETER);
             if (!$isExceptionAllowed) {
                 return;
             }

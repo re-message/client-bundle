@@ -16,7 +16,7 @@
 
 namespace RM\Bundle\ClientBundle\DependencyInjection;
 
-use RM\Bundle\ClientBundle\RemessageClientBundle;
+use RM\Bundle\ClientBundle\RmClientBundle;
 use RM\Bundle\ClientBundle\Transport\TransportType;
 use RM\Component\Client\Entity\User;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
@@ -35,7 +35,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder(RemessageClientBundle::NAME);
+        $treeBuilder = new TreeBuilder(RmClientBundle::NAME);
         $root = $treeBuilder->getRootNode();
         $root
             ->addDefaultsIfNotSet()

@@ -23,9 +23,9 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * @author Oleg Kozlov <h1karo@remessage.ru>
  */
-class RemessageClientBundle extends Bundle
+class RmClientBundle extends Bundle
 {
-    public const NAME = 'remessage_client';
+    public const NAME = 'rm_client';
 
     public const TAG_REPOSITORY = self::NAME . '.repository';
     public const TAG_AUTHENTICATOR = self::NAME . '.authenticator';
